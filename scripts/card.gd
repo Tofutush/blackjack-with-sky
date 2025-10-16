@@ -4,9 +4,10 @@ class_name Card
 var suit: String
 var rank: String
 
-func _init(suit: String, rank: String) -> void:
-	self.suit = suit
-	self.rank = rank
+func _init(suit1: String, rank1: String) -> void:
+	suit = suit1
+	rank = rank1
+	print(getValue())
 
 func getValue() -> Dictionary:
 	match rank:
@@ -25,3 +26,6 @@ func getValue() -> Dictionary:
 				'soft': false,
 				'value': int(rank)
 			}
+
+func toText() -> String:
+	return rank + " of " + suit

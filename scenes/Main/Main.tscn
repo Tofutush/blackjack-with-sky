@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctjvnj3palpng"]
+[gd_scene load_steps=3 format=3 uid="uid://ctjvnj3palpng"]
 
 [ext_resource type="Script" uid="uid://b0gctenpjx66d" path="res://scenes/Main/main.gd" id="1_bvmdu"]
+[ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="2_owiiy"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,4 +10,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_owiiy")
 script = ExtResource("1_bvmdu")
+
+[node name="DealerCards" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Dealer:"
+
+[node name="PlayerCards" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.065
+anchor_bottom = 0.065
+offset_top = -0.200005
+offset_right = 40.0
+offset_bottom = 66.8
+text = "Player:"

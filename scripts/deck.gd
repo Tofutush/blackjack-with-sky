@@ -1,10 +1,10 @@
 extends Resource
 class_name Deck
 
-var deck: Array[Card]
+var deck: Array
 
-func _init(deck: Array[Card]) -> void:
-	self.deck = deck
+func _init(deck1: Array) -> void:
+	deck = deck1
 
 func drawRandom() -> Card:
 	var index = randi_range(0, deck.size() - 1)
