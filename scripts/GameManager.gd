@@ -11,4 +11,4 @@ func createDeck() -> Deck:
 		for suit in suits:
 			var card = Card.new(suit, rank)
 			cards.append(card)
-	return Deck.new(cards)
+	return Deck.new(cards).shuffle()

@@ -8,16 +8,19 @@ var deck: Array
 func _init(deck1: Array) -> void:
 	deck = deck1
 
+func shuffle() -> Deck:
+	deck.shuffle()
+	return self
+
 func drawRandom() -> Card:
-	# return a random card and remove it from the deck
-	var index = randi_range(0, deck.size() - 1)
-	return deck.pop_at(index)
+	return deck.pop_back()
 
 func getCard(index: int) -> Card:
 	return deck[index]
 
-func addCard(card: Card) -> void:
+func addCard(card: Card) -> Deck:
 	deck.append(card)
+	return self
 
 func getValue() -> Dictionary:
 	# get value, if soft returns an array sorted so the first element is always smaller
