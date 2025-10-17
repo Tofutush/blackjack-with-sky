@@ -1,6 +1,7 @@
 extends Node
 
-var money = 100
+var money := 100
+var standOnSoft17 := false
 
 func createDeck() -> Deck:
 	const suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']

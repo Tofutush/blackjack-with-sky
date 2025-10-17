@@ -30,6 +30,7 @@ def getRandomCard(deck):
 
 
 def calcTotal(deck):
+    # INCORRECT HANDLING OF ACES
     sum = 0
     soft = False
     aceCount = 0

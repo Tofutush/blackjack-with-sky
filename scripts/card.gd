@@ -7,7 +7,6 @@ var rank: String
 func _init(suit1: String, rank1: String) -> void:
 	suit = suit1
 	rank = rank1
-	print(getValue())
 
 func getValue() -> int:
 	match rank:

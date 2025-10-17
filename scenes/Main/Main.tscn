@@ -50,3 +50,5 @@ position = Vector2(48, 0)
 texture = ExtResource("3_8llo8")
 region_enabled = true
 region_rect = Rect2(1881, 882, 209, 294)
+
+[connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]

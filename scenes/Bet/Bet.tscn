@@ -47,3 +47,4 @@ offset_bottom = 277.0
 text = "Start!"
 
 [connection signal="value_changed" from="Slider" to="." method="_on_slider_value_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
