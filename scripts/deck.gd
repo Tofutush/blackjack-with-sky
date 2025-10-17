@@ -3,6 +3,8 @@ class_name Deck
 
 var deck: Array
 
+# we're using the same class for player, dealer, and the drawpile and well, we were supposed to make inherited classes, but most of the time each class only gets 1 instance so whats the point? so some of the methods here are exclusive to player / dealer / drawpile. just use them properly and youll be fine
+
 func _init(deck1: Array) -> void:
 	deck = deck1
 
@@ -47,15 +49,32 @@ func getValue() -> Dictionary:
 		}
 
 func getValueString() -> String:
-	var value = getValue()
-	if value['soft']:
-		return "either " + str(value['value'][0]) + " or " + str(value['value'][1])
+	var total = getValue()
+	if total['soft']:
+		return "either " + str(total['value'][0]) + " or " + str(total['value'][1])
 	else:
-		return str(value['value'])
+		return str(total['value'])
+
+func isNaturalBlackjack() -> bool:
+	var total = getValue()
+	# must be one ace (soft) and one 10
+	return total['soft'] && total['value'][1] == 21
 
 func isBusted() -> bool:
 	var total = getValue()
 	if total['soft']:
-		# since total['value'] is sorted, the first element being larger than 21 guarantees a larger second element
+		# smallest value larger than 21, since total['value'] is sorted
 		return total['value'][0] > 21
 	return total['value'] > 21
+
+func isEndForDealer() -> bool:
+	var total = getValue()
+	if total['soft']:
+		if total['value'][0] >= 17:
+			# same logic, here all values are larger than / equal to 17
+			return true
+		if total['value'].any(func(number): return number < 17) and total['value'].any(func(number): return number >= 17):
+			# this is if we have over 17 ones and under 17 ones. we decide based on the setting
+			return GameManager.standOnSoft17
+		return false
+	return total['value'] >= 17
