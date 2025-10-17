@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://qva68m56j7ro"]
+
+[ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_vsd3a"]
+[ext_resource type="Script" uid="uid://b4xtguoi45ec5" path="res://scenes/Bet/bet.gd" id="2_s333m"]
+
+[node name="Bet" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 494.0
+offset_bottom = 293.0
+theme = ExtResource("1_vsd3a")
+script = ExtResource("2_s333m")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.081
+anchor_top = 0.071
+anchor_right = 0.081
+anchor_bottom = 0.071
+offset_left = 131.986
+offset_top = 68.197
+offset_right = 279.986
+offset_bottom = 135.197
+text = "qsdad"
+
+[node name="Slider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.133
+anchor_right = 0.048
+anchor_bottom = 0.133
+offset_left = 75.288
+offset_top = 142.031
+offset_right = 357.288
+offset_bottom = 172.031
+min_value = 1.0
+value = 2.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 195.0
+offset_top = 235.0
+offset_right = 266.0
+offset_bottom = 277.0
+text = "Start!"
+
+[connection signal="value_changed" from="Slider" to="." method="_on_slider_value_changed"]
