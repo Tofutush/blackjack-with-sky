@@ -22,8 +22,8 @@ func play(bet: int) -> void:
 	playerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom())
-	$PlayerCards.text = playerHand.getCard(0).toText() + ", " + playerHand.getCard(1).toText() + ", value " + playerHand.getValueString()
-	$DealerCards.text = dealerHand.getCard(0).toText() + ", " + dealerHand.getCard(1).toText() + ", value " + dealerHand.getValueString()
+	$PlayerCards.text = "player: " + playerHand.getCard(0).toText() + ", " + playerHand.getCard(1).toText() + ", value " + playerHand.getValueString()
+	$DealerCards.text = "dealer: " + dealerHand.getCard(0).toText() + ", " + dealerHand.getCard(1).toText() + ", value " + dealerHand.getValueString()
 
 	# check natural blackjack
 	if isNaturalBlackjack(playerHand):

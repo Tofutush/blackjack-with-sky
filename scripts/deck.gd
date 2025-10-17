@@ -7,6 +7,7 @@ func _init(deck1: Array) -> void:
 	deck = deck1
 
 func drawRandom() -> Card:
+	# return a random card and remove it from the deck
 	var index = randi_range(0, deck.size() - 1)
 	return deck.pop_at(index)
 
@@ -18,7 +19,6 @@ func addCard(card: Card) -> void:
 
 func getValue() -> Dictionary:
 	# get value, if soft returns an array sorted so the first element is always smaller
-	# TODO: rewrite this to take all aces into account. currently it's either all 1's or all 10's
 	var sum = 0
 	var aces = 0
 	var soft = false
@@ -28,7 +28,13 @@ func getValue() -> Dictionary:
 			soft = true
 			aces = aces + 1
 	if soft:
-		var value = [sum, sum + aces * 10]
+		var value = [sum]
+		for ace in aces:
+			var tempArray = []
+			for each in value:
+				if not value.has(each + 10):
+					tempArray.append(each + 10)
+			value.append_array(tempArray)
 		value.sort()
 		return {
 			'soft': true,
