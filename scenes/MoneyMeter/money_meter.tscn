@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://086xpid11b5m"]
+
+[ext_resource type="Script" uid="uid://2odrmr4mlteq" path="res://scenes/MoneyMeter/money_meter.gd" id="1_ljaij"]
+
+[node name="MoneyMeter" type="VBoxContainer"]
+offset_right = 600.0
+offset_bottom = 57.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_ljaij")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+max_value = 1000.0
+step = 1.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "$"

@@ -28,7 +28,7 @@ func play(bet: int) -> void:
 	# check natural blackjack
 	if playerHand.isNaturalBlackjack():
 		print('natural blackjack! you win!')
-		GameManager.money += floor(bet * 1.5)
+		GameManager.changeMoney(floor(bet * 1.5))
 
 	# check split
 	if playerHand.getCard(0).compareRank(playerHand.getCard(1)):
