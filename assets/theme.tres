@@ -1646,6 +1646,7 @@ cache/0/48/0/glyphs/71/texture_idx = 0
 
 [resource]
 default_font_size = 24
+Button/font_sizes/font_size = 32
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)

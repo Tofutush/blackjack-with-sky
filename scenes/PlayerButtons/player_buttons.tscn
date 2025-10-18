@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dg3qjnes613ou"]
+
+[node name="PlayerButtons" type="VBoxContainer"]
+offset_right = 31.0
+offset_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HitButton" type="Button" parent="."]
+layout_mode = 2
+text = "Hit"
+
+[node name="StandButton" type="Button" parent="."]
+layout_mode = 2
+text = "Stand"
+
+[node name="DoubleDownButton" type="Button" parent="."]
+layout_mode = 2
+text = "Double Down"
+
+[node name="SurrenderButton" type="Button" parent="."]
+layout_mode = 2
+text = "Surrender"

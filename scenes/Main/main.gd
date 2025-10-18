@@ -6,7 +6,7 @@ var playerHand: Deck
 var playerHand2: Deck
 
 func _ready() -> void:
-	pass
+	$Bet.startBetting()
 
 func _on_bet_bet_submitted(amount: int) -> void:
 	play(amount)
@@ -28,6 +28,7 @@ func play(bet: int) -> void:
 	# check natural blackjack
 	if playerHand.isNaturalBlackjack():
 		print('natural blackjack! you win!')
+		GameManager.money += floor(bet * 1.5)
 
 	# check split
 	if playerHand.getCard(0).compareRank(playerHand.getCard(1)):
