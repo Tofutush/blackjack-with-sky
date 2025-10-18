@@ -7,6 +7,7 @@ var playerHand2: Deck
 
 func _ready() -> void:
 	$Bet.startBetting()
+	$PlayerButtons.disableButtons()
 
 func _on_bet_bet_submitted(amount: int) -> void:
 	play(amount)
@@ -35,5 +36,9 @@ func play(bet: int) -> void:
 		print('splittable')
 
 	# player draw loop
+	$PlayerButtons.enableButtons()
 
 	# dealer draw loop
+
+func _on_player_buttons_hit() -> void:
+	pass # idk what to do now

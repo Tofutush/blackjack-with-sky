@@ -1,10 +1,13 @@
-[gd_scene format=3 uid="uid://dg3qjnes613ou"]
+[gd_scene load_steps=2 format=3 uid="uid://dg3qjnes613ou"]
+
+[ext_resource type="Script" uid="uid://8amx7fpcvs84" path="res://scenes/PlayerButtons/player_buttons.gd" id="1_mal4x"]
 
 [node name="PlayerButtons" type="VBoxContainer"]
 offset_right = 31.0
 offset_bottom = 31.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+script = ExtResource("1_mal4x")
 
 [node name="HitButton" type="Button" parent="."]
 layout_mode = 2
@@ -21,3 +24,8 @@ text = "Double Down"
 [node name="SurrenderButton" type="Button" parent="."]
 layout_mode = 2
 text = "Surrender"
+
+[connection signal="pressed" from="HitButton" to="." method="_on_hit_button_pressed"]
+[connection signal="pressed" from="StandButton" to="." method="_on_stand_button_pressed"]
+[connection signal="pressed" from="DoubleDownButton" to="." method="_on_double_down_button_pressed"]
+[connection signal="pressed" from="SurrenderButton" to="." method="_on_surrender_button_pressed"]
