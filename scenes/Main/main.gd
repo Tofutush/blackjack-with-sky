@@ -8,8 +8,15 @@ var playerHand2: Deck
 var bet: int
 
 func _ready() -> void:
+	newGame()
+
+func newGame() -> void:
+	$ContinueButton.hide()
 	$Bet.startBetting()
 	$PlayerButtons.disableButtons()
+
+func _on_continue_button_pressed() -> void:
+	newGame()
 
 func _on_bet_bet_submitted(amount: int) -> void:
 	bet = amount
@@ -50,6 +57,7 @@ func _on_player_hit() -> void:
 	if playerHand.isBusted():
 		print('you bust! you lose!')
 		$PlayerButtons.disableButtons()
+		$ContinueButton.show()
 		return
 	dealerDrawLoop()
 
@@ -65,6 +73,7 @@ func _on_player_double_down() -> void:
 	# see if you can extract this into its own function so you can reuse it
 	if playerHand.isBusted():
 		print('you bust! you lose!')
+		$ContinueButton.show()
 		return
 	dealerDrawLoop()
 
@@ -77,6 +86,7 @@ func _on_player_surrender() -> void:
 	# 2.0 to get rid of that warning while avoiding that stupid line of code
 	GameManager.changeMoney(int(floor(bet / 2.0)))
 	$PlayerButtons.disableButtons()
+	$ContinueButton.show()
 	return
 
 func dealerDrawLoop() -> void:
@@ -85,16 +95,17 @@ func dealerDrawLoop() -> void:
 	if dealerHand.isBusted():
 		GameManager.changeMoney(bet * 2)
 		print('dealer over, you win')
-		return
-	var result = playerHand.compareValue(dealerHand)
-	match result:
-		0:
-			GameManager.changeMoney(bet)
-			print('push')
-		1:
-			GameManager.changeMoney(bet * 2)
-			print('you win')
-		-1:
-			print('you lose')
-		_:
-			push_error('somehow result is ' + str(result))
+	else:
+		var result = playerHand.compareValue(dealerHand)
+		match result:
+			0:
+				GameManager.changeMoney(bet)
+				print('push')
+			1:
+				GameManager.changeMoney(bet * 2)
+				print('you win')
+			-1:
+				print('you lose')
+			_:
+				push_error('somehow result is ' + str(result))
+	$ContinueButton.show()

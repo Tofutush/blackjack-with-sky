@@ -66,8 +66,22 @@ offset_top = 0.479996
 offset_bottom = 0.479996
 cardScale = 0.7
 
+[node name="ContinueButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56
+anchor_top = 0.508
+anchor_right = 0.56
+anchor_bottom = 0.508
+offset_left = -0.19995117
+offset_top = 0.35998535
+offset_right = 148.80005
+offset_bottom = 53.359985
+text = "Continue"
+
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
 [connection signal="hit" from="PlayerButtons" to="." method="_on_player_hit"]
 [connection signal="stand" from="PlayerButtons" to="." method="_on_player_stand"]
 [connection signal="surrender" from="PlayerButtons" to="." method="_on_player_surrender"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
