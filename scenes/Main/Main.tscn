@@ -59,4 +59,7 @@ offset_right = 0.919922
 offset_bottom = -0.28009
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
-[connection signal="hit" from="PlayerButtons" to="." method="_on_player_buttons_hit"]
+[connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
+[connection signal="hit" from="PlayerButtons" to="." method="_on_player_hit"]
+[connection signal="stand" from="PlayerButtons" to="." method="_on_player_stand"]
+[connection signal="surrender" from="PlayerButtons" to="." method="_on_player_surrender"]

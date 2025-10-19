@@ -17,4 +17,6 @@ func createDeck() -> Deck:
 
 func changeMoney(amount: int) -> void:
 	money += amount
+	# we flooring it here though i think i floor it when calling the function anyways
+	money = floor(money)
 	money_changed.emit(money)

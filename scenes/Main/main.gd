@@ -35,10 +35,19 @@ func play(bet: int) -> void:
 	if playerHand.getCard(0).compareRank(playerHand.getCard(1)):
 		print('splittable')
 
-	# player draw loop
+	# player draw
 	$PlayerButtons.enableButtons()
 
 	# dealer draw loop
 
-func _on_player_buttons_hit() -> void:
-	pass # idk what to do now
+func _on_player_hit() -> void:
+	pass # Replace with function body.
+
+func _on_player_double_down() -> void:
+	pass # Replace with function body.
+
+func _on_player_stand() -> void:
+	pass # Replace with function body.
+
+func _on_player_surrender() -> void:
+	pass # Replace with function body.
