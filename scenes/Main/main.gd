@@ -68,6 +68,7 @@ func _on_player_double_down() -> void:
 		# the button should be disabled if you cant double down
 		push_error('not enough money to double down')
 	GameManager.changeMoney(-bet)
+	bet *= 2
 	playerHand.addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButtons()
 	# see if you can extract this into its own function so you can reuse it
