@@ -5,6 +5,9 @@ class_name DeckDisplay
 var deck: Deck
 
 func _ready() -> void:
+	clear()
+
+func clear() -> void:
 	for child in get_children():
 		child.queue_free()
 
@@ -18,8 +21,8 @@ func addCard(card: Card, back = false) -> void:
 		sprite.region_rect = getRegion(card)
 	sprite.region_enabled = true
 	sprite.centered = false
-	# offsets it by 42 * the number of children it has already so it shows the side of the prev card. also multiplies it by scale
-	sprite.position = Vector2(42 * cardScale * get_child_count(), 0)
+	# offsets it by 38 * the number of children it has already so it shows the side of the prev card. also multiplies it by scale
+	sprite.position = Vector2(38 * cardScale * get_child_count(), 0)
 	sprite.scale = Vector2(cardScale, cardScale)
 	add_child(sprite)
 

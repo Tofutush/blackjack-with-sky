@@ -14,6 +14,8 @@ func newGame() -> void:
 	$ContinueButton.hide()
 	$Bet.startBetting()
 	$PlayerButtons.disableButtons()
+	$PlayerDeckDisplay.clear()
+	$DealerDeckDisplay.clear()
 
 func _on_continue_button_pressed() -> void:
 	newGame()
@@ -59,7 +61,6 @@ func _on_player_hit() -> void:
 		$PlayerButtons.disableButtons()
 		$ContinueButton.show()
 		return
-	dealerDrawLoop()
 
 func _on_player_double_down() -> void:
 	# double down: bet double, hit once more, and stand

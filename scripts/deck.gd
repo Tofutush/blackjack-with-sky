@@ -29,6 +29,9 @@ func linkDisplay(display1: DeckDisplay):
 	# auto-update the DeckDisplay
 	display = display1
 	display.deck = self
+	display.clear()
+	for card in deck:
+		display.addCard(card)
 
 func addCard(card: Card, back = false) -> Deck:
 	deck.append(card)
