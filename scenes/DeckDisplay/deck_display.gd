@@ -1,4 +1,5 @@
 extends Control
+class_name DeckDisplay
 
 @export var cardScale: float
 

@@ -19,17 +19,15 @@ func play(bet: int) -> void:
 	# create decks
 	mainDeck = GameManager.createDeck()
 	playerHand = Deck.new([])
+	playerHand.linkDisplay($PlayerDeckDisplay)
 	dealerHand = Deck.new([])
+	dealerHand.linkDisplay($DealerDeckDisplay)
 
 	# deal initial cards
 	playerHand.addCard(mainDeck.drawRandom())
 	playerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom())
-	$PlayerDeckDisplay.addCard(playerHand.getCard(0))
-	$PlayerDeckDisplay.addCard(playerHand.getCard(1))
-	$DealerDeckDisplay.addCard(dealerHand.getCard(0))
-	$DealerDeckDisplay.addCard(dealerHand.getCard(1))
 
 	# check natural blackjack
 	if playerHand.isNaturalBlackjack():

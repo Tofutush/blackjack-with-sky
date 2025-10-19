@@ -2,11 +2,15 @@ extends Resource
 class_name Deck
 
 var deck: Array
+var display: DeckDisplay
 
 # we're using the same class for player, dealer, and the drawpile and well, we were supposed to make inherited classes, but most of the time each class only gets 1 instance so whats the point? so some of the methods here are exclusive to player / dealer / drawpile. just use them properly and youll be fine
 
 func _init(deck1: Array) -> void:
 	deck = deck1
+
+func linkDisplay(display1: DeckDisplay):
+	display = display1
 
 func shuffle() -> Deck:
 	deck.shuffle()
@@ -20,6 +24,8 @@ func getCard(index: int) -> Card:
 
 func addCard(card: Card) -> Deck:
 	deck.append(card)
+	if display:
+		display.addCard(card)
 	return self
 
 func getValue() -> Dictionary:
