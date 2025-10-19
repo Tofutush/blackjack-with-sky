@@ -22,7 +22,7 @@ offset_left = 131.986
 offset_top = 68.197
 offset_right = 279.986
 offset_bottom = 135.197
-text = "qsdad"
+text = "$"
 
 [node name="Slider" type="HSlider" parent="."]
 layout_mode = 1
