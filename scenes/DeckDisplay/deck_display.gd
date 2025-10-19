@@ -1,5 +1,7 @@
 extends Control
 
+@export var cardScale: float
+
 func _ready() -> void:
 	for child in get_children():
 		child.queue_free()
@@ -34,5 +36,6 @@ func addCard(card: Card) -> void:
 	sprite.region_enabled = true
 	sprite.region_rect = Rect2(Vector2(x, y), Vector2(209, 294))
 	sprite.centered = false
-	sprite.position = Vector2(48 * (get_child_count() - 1), 0)
+	sprite.position = Vector2(48 * (get_child_count()), 0)
+	sprite.scale = Vector2(cardScale, cardScale)
 	add_child(sprite)

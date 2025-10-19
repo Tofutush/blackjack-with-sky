@@ -13,4 +13,4 @@ func _on_slider_value_changed(value: float) -> void:
 
 func _on_button_pressed() -> void:
 	bet_submitted.emit(int($Slider.value))
-	#hide()
+	hide()
