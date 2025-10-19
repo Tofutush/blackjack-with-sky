@@ -23,23 +23,6 @@ offset_top = 4.0
 offset_right = 496.0
 offset_bottom = 297.0
 
-[node name="DealerCards" type="Label" parent="."]
-layout_mode = 0
-offset_top = 458.0
-offset_right = 166.0
-offset_bottom = 525.0
-text = "Dealer:"
-
-[node name="PlayerCards" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.065
-anchor_bottom = 0.065
-offset_top = 457.8
-offset_right = 158.0
-offset_bottom = 524.8
-text = "Player:"
-
 [node name="MoneyMeter" parent="." instance=ExtResource("6_d463r")]
 layout_mode = 0
 offset_left = 756.0
