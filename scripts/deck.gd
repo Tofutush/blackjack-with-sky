@@ -13,6 +13,9 @@ func _init(deck1: Array) -> void:
 func getCard(index: int) -> Card:
 	return deck[index]
 
+func getCardCount() -> int:
+	return deck.size()
+
 # drawpile
 func shuffle() -> Deck:
 	deck.shuffle()
@@ -25,11 +28,12 @@ func drawRandom() -> Card:
 func linkDisplay(display1: DeckDisplay):
 	# auto-update the DeckDisplay
 	display = display1
+	display.deck = self
 
-func addCard(card: Card) -> Deck:
+func addCard(card: Card, back = false) -> Deck:
 	deck.append(card)
 	if display:
-		display.addCard(card)
+		display.addCard(card, back)
 	return self
 
 func getValue() -> Dictionary:

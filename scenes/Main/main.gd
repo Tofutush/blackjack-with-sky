@@ -37,7 +37,7 @@ func play() -> void:
 	playerHand.addCard(mainDeck.drawRandom())
 	playerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom())
-	dealerHand.addCard(mainDeck.drawRandom())
+	dealerHand.addCard(mainDeck.drawRandom(), true)
 
 	# check natural blackjack
 	if playerHand.isNaturalBlackjack():
@@ -91,6 +91,8 @@ func _on_player_surrender() -> void:
 	return
 
 func dealerDrawLoop() -> void:
+	$DealerDeckDisplay.turnLastBackCard()
+	# TODO: check insurance win
 	while not dealerHand.isEndForDealer():
 		dealerHand.addCard(mainDeck.drawRandom())
 	if dealerHand.isBusted():
