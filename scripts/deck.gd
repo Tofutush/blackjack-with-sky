@@ -9,9 +9,11 @@ var display: DeckDisplay
 func _init(deck1: Array) -> void:
 	deck = deck1
 
-func linkDisplay(display1: DeckDisplay):
-	display = display1
+# general
+func getCard(index: int) -> Card:
+	return deck[index]
 
+# drawpile
 func shuffle() -> Deck:
 	deck.shuffle()
 	return self
@@ -19,8 +21,10 @@ func shuffle() -> Deck:
 func drawRandom() -> Card:
 	return deck.pop_back()
 
-func getCard(index: int) -> Card:
-	return deck[index]
+# player & dealer
+func linkDisplay(display1: DeckDisplay):
+	# auto-update the DeckDisplay
+	display = display1
 
 func addCard(card: Card) -> Deck:
 	deck.append(card)
