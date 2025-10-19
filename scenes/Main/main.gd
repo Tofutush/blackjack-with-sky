@@ -13,6 +13,9 @@ func _on_bet_bet_submitted(amount: int) -> void:
 	play(amount)
 
 func play(bet: int) -> void:
+	# subtract bet
+	GameManager.changeMoney(-bet)
+
 	# create decks
 	mainDeck = GameManager.createDeck()
 	playerHand = Deck.new([])
