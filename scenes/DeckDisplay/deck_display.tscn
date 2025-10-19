@@ -1,16 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://gk6yldhrov2y"]
+[gd_scene load_steps=3 format=3 uid="uid://gk6yldhrov2y"]
 
 [ext_resource type="Texture2D" uid="uid://bsppoymneohor" path="res://assets/cards.png" id="1_ap2lk"]
+[ext_resource type="Script" uid="uid://ygr8hs6rqm0g" path="res://scenes/DeckDisplay/deck_display.gd" id="1_k3004"]
 
-[node name="DeckDisplay" type="HBoxContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="DeckDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_k3004")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(124, 164)
 texture = ExtResource("1_ap2lk")
+centered = false
 region_enabled = true
 region_rect = Rect2(209, 0, 209, 294)
