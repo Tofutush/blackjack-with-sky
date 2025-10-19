@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctjvnj3palpng"]
+[gd_scene load_steps=8 format=3 uid="uid://ctjvnj3palpng"]
 
 [ext_resource type="Script" uid="uid://b0gctenpjx66d" path="res://scenes/Main/main.gd" id="1_bvmdu"]
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="2_owiiy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dg3qjnes613ou" path="res://scenes/PlayerButtons/player_buttons.tscn" id="5_pkilc"]
 [ext_resource type="PackedScene" uid="uid://086xpid11b5m" path="res://scenes/MoneyMeter/money_meter.tscn" id="6_d463r"]
 [ext_resource type="PackedScene" uid="uid://gk6yldhrov2y" path="res://scenes/DeckDisplay/deck_display.tscn" id="6_q8kdv"]
+[ext_resource type="PackedScene" uid="uid://b8g3e880xcpaw" path="res://scenes/Chips/chips.tscn" id="7_q8kdv"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -78,6 +79,13 @@ offset_top = 0.35998535
 offset_right = 148.80005
 offset_bottom = 53.359985
 text = "Continue"
+
+[node name="Chips" parent="." instance=ExtResource("7_q8kdv")]
+layout_mode = 1
+offset_left = 623.0
+offset_top = 590.0
+offset_right = 623.64
+offset_bottom = 589.88
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
