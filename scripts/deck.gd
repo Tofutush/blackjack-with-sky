@@ -51,12 +51,22 @@ func getValue() -> Dictionary:
 			'value': sum
 		}
 
-func getValueString() -> String:
+# toString functions
+func toValueString() -> String:
 	var total = getValue()
 	if total['soft']:
-		return "either " + str(total['value'][0]) + " or " + str(total['value'][1])
+		var string = ''
+		for val in total['value']:
+			string += str(val) + ', '
+		return string
 	else:
 		return str(total['value'])
+
+func toString() -> String:
+	var string = ''
+	for card in deck:
+		string += card.toString() + ', '
+	return string
 
 func isNaturalBlackjack() -> bool:
 	var total = getValue()

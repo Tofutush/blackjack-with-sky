@@ -17,7 +17,7 @@ func getValue() -> int:
 func isSoft() -> bool:
 	return rank == "A"
 
-func toText() -> String:
+func toString() -> String:
 	return rank + " of " + suit
 
 func compareRank(card: Card) -> bool:
