@@ -9,6 +9,7 @@ func _ready() -> void:
 func addCard(card: Card) -> void:
 	var sprite = Sprite2D.new()
 	sprite.texture = preload("res://assets/cards.png")
+	# determine which region to pick
 	var x
 	var y
 	match card.suit:
@@ -36,6 +37,7 @@ func addCard(card: Card) -> void:
 	sprite.region_enabled = true
 	sprite.region_rect = Rect2(Vector2(x, y), Vector2(209, 294))
 	sprite.centered = false
+	# offsets it by 48 * the number of children it has already so it shows the side of the prev card
 	sprite.position = Vector2(48 * (get_child_count()), 0)
 	sprite.scale = Vector2(cardScale, cardScale)
 	add_child(sprite)
