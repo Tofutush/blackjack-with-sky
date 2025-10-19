@@ -5,14 +5,17 @@ var dealerHand: Deck
 var playerHand: Deck
 var playerHand2: Deck
 
+var bet: int
+
 func _ready() -> void:
 	$Bet.startBetting()
 	$PlayerButtons.disableButtons()
 
 func _on_bet_bet_submitted(amount: int) -> void:
-	play(amount)
+	bet = amount
+	play()
 
-func play(bet: int) -> void:
+func play() -> void:
 	# subtract bet
 	GameManager.changeMoney(-bet)
 
@@ -41,16 +44,35 @@ func play(bet: int) -> void:
 	# player draw
 	$PlayerButtons.enableButtons()
 
-	# dealer draw loop
-
+# 4 player options. these signals are middleman signals from $PlayerButtons
 func _on_player_hit() -> void:
-	pass # Replace with function body.
+	playerHand.addCard(mainDeck.drawRandom())
+	if playerHand.isBusted():
+		print('you bust! you lose!')
+		$PlayerButtons.disableButtons()
 
 func _on_player_double_down() -> void:
-	pass # Replace with function body.
+	if GameManager.money < bet:
+		# the button should be disabled if you cant double down
+		push_error('not enough money to double down')
+	# double down: bet double, hit once more, and stand
+	GameManager.changeMoney(-bet)
+	playerHand.addCard(mainDeck.drawRandom())
+	$PlayerButtons.disableButtons()
+	# see if you can extract this into its own function so you can reuse it
+	if playerHand.isBusted():
+		print('you bust! you lose!')
+		# round ends
 
 func _on_player_stand() -> void:
-	pass # Replace with function body.
+	$PlayerButtons.disableButtons()
+	# dealer draw
 
 func _on_player_surrender() -> void:
-	pass # Replace with function body.
+	# 2.0 to get rid of that warning while avoiding that stupid line of code
+	GameManager.changeMoney(int(floor(bet / 2.0)))
+	$PlayerButtons.disableButtons()
+	# round ends
+
+func dealerDrawLoop():
+	pass

@@ -19,10 +19,10 @@ script = ExtResource("1_bvmdu")
 
 [node name="Bet" parent="." instance=ExtResource("3_brr1f")]
 layout_mode = 0
-offset_left = 162.0
-offset_top = 603.0
-offset_right = 656.0
-offset_bottom = 896.0
+offset_left = 624.0
+offset_top = 360.0
+offset_right = 1118.0
+offset_bottom = 653.0
 
 [node name="MoneyMeter" parent="." instance=ExtResource("6_d463r")]
 layout_mode = 0
