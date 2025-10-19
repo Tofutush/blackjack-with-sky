@@ -61,6 +61,32 @@ func getValue() -> Dictionary:
 			'value': sum
 		}
 
+func getHighestValidValue() -> int:
+	# get the highest value that's not bust
+	var value = getValue()
+	if value['soft']:
+		var idx = value['value'].size() - 1
+		for index in value['value'].size():
+			if value['value'][index] > 21:
+				idx = index - 1
+				break
+		if idx == -1:
+			push_error('array of values all > 21, this func shouldnt have been called')
+			return -1
+		return value['value'][idx]
+	elif value['value'] > 21:
+		push_error('single value > 21, this func shouldnt have been called')
+		return -1
+	return value['value']
+
+func compareValue(otherDeck: Deck) -> int:
+	# 1 if this is larger, -1 if other is larger, 0 if tie
+	var value1 = getHighestValidValue()
+	var value2 = otherDeck.getHighestValidValue()
+	if value1 == value2: return 0
+	if value1 > value2: return 1
+	return -1
+
 # toString functions
 func toValueString() -> String:
 	var total = getValue()

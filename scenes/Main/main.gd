@@ -50,29 +50,51 @@ func _on_player_hit() -> void:
 	if playerHand.isBusted():
 		print('you bust! you lose!')
 		$PlayerButtons.disableButtons()
+		return
+	dealerDrawLoop()
 
 func _on_player_double_down() -> void:
+	# double down: bet double, hit once more, and stand
+	# can only be done on round 1 just like insurance, so consider moving it out of the PlayerButtons list?
 	if GameManager.money < bet:
 		# the button should be disabled if you cant double down
 		push_error('not enough money to double down')
-	# double down: bet double, hit once more, and stand
 	GameManager.changeMoney(-bet)
 	playerHand.addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButtons()
 	# see if you can extract this into its own function so you can reuse it
 	if playerHand.isBusted():
 		print('you bust! you lose!')
-		# round ends
+		return
+	dealerDrawLoop()
 
 func _on_player_stand() -> void:
 	$PlayerButtons.disableButtons()
 	# dealer draw
+	dealerDrawLoop()
 
 func _on_player_surrender() -> void:
 	# 2.0 to get rid of that warning while avoiding that stupid line of code
 	GameManager.changeMoney(int(floor(bet / 2.0)))
 	$PlayerButtons.disableButtons()
-	# round ends
+	return
 
-func dealerDrawLoop():
-	pass
+func dealerDrawLoop() -> void:
+	while not dealerHand.isEndForDealer():
+		dealerHand.addCard(mainDeck.drawRandom())
+	if dealerHand.isBusted():
+		GameManager.changeMoney(bet * 2)
+		print('dealer over, you win')
+		return
+	var result = playerHand.compareValue(dealerHand)
+	match result:
+		0:
+			GameManager.changeMoney(bet)
+			print('push')
+		1:
+			GameManager.changeMoney(bet * 2)
+			print('you win')
+		-1:
+			print('you lose')
+		_:
+			push_error('somehow result is ' + str(result))
