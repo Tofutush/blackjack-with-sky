@@ -17,6 +17,10 @@ func newGame() -> void:
 	$PlayerDeckDisplay.clear()
 	$DealerDeckDisplay.clear()
 
+func endGame() -> void:
+	$PlayerButtons.disableButtons()
+	$ContinueButton.show()
+
 func _on_continue_button_pressed() -> void:
 	newGame()
 
@@ -45,6 +49,8 @@ func play() -> void:
 	if playerHand.isNaturalBlackjack():
 		print('natural blackjack! you win!')
 		GameManager.changeMoney(floor(bet * 1.5))
+		endGame()
+		return
 
 	# check split
 	if playerHand.getCard(0).compareRank(playerHand.getCard(1)):
@@ -53,14 +59,14 @@ func play() -> void:
 	# player draw
 	$PlayerButtons.enableButtons()
 
+	return
+
 # 4 player options. these signals are middleman signals from $PlayerButtons
 func _on_player_hit() -> void:
 	playerHand.addCard(mainDeck.drawRandom())
 	if playerHand.isBusted():
 		print('you bust! you lose!')
-		$PlayerButtons.disableButtons()
-		$ContinueButton.show()
-		return
+		endGame()
 
 func _on_player_double_down() -> void:
 	# double down: bet double, hit once more, and stand
@@ -72,10 +78,9 @@ func _on_player_double_down() -> void:
 	bet *= 2
 	playerHand.addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButtons()
-	# see if you can extract this into its own function so you can reuse it
 	if playerHand.isBusted():
 		print('you bust! you lose!')
-		$ContinueButton.show()
+		endGame()
 		return
 	dealerDrawLoop()
 
@@ -87,9 +92,7 @@ func _on_player_stand() -> void:
 func _on_player_surrender() -> void:
 	# 2.0 to get rid of that warning while avoiding that stupid line of code
 	GameManager.changeMoney(int(floor(bet / 2.0)))
-	$PlayerButtons.disableButtons()
-	$ContinueButton.show()
-	return
+	endGame()
 
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
@@ -112,4 +115,4 @@ func dealerDrawLoop() -> void:
 				print('you lose')
 			_:
 				push_error('somehow result is ' + str(result))
-	$ContinueButton.show()
+	endGame()
