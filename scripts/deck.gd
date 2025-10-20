@@ -24,6 +24,11 @@ func shuffle() -> Deck:
 func drawRandom() -> Card:
 	return deck.pop_back()
 
+func drawRigged(rank: String) -> Card:
+	print(deck.find_custom(func(card: Card): return card.rank == rank))
+	print(deck[deck.find_custom(func(card: Card): return card.rank == rank)])
+	return deck.pop_at(deck.find_custom(func(card: Card): return card.rank == rank))
+
 # player & dealer
 func linkDisplay(display1: DeckDisplay):
 	# auto-update the DeckDisplay
@@ -114,7 +119,7 @@ func toString() -> String:
 func isNaturalBlackjack() -> bool:
 	var total = getValue()
 	# must be one ace (soft) and one 10
-	return total['soft'] && total['value'][1] == 21
+	return deck.size() == 2 && total['soft'] && total['value'][1] == 21
 
 func isBusted() -> bool:
 	var total = getValue()
@@ -125,6 +130,8 @@ func isBusted() -> bool:
 
 func isEndForDealer() -> bool:
 	var total = getValue()
+	if isNaturalBlackjack():
+		return true
 	if total['soft']:
 		if total['value'][0] >= 17:
 			# same logic, here all values are larger than / equal to 17
