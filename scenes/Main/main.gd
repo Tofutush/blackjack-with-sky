@@ -6,36 +6,53 @@ var playerHand: Deck
 var playerHand2: Deck
 
 var bet: int
+var insuranceBet: int
+var insuring: bool
 
 func _ready() -> void:
 	newGame()
 
 func newGame() -> void:
 	$ContinueButton.hide()
+	$InsuranceButton.hide()
 	$MainChips.hide()
 	$SplitChips.hide()
 	$InsuranceChips.hide()
-	$Bet.startBetting()
+	$Bet.startBetting(GameManager.money, "bet")
 	$PlayerButtons.disableButtons()
 	$PlayerDeckDisplay.clear()
 	$DealerDeckDisplay.clear()
 
 func endGame() -> void:
+	print(insuring)
+	# check insurance on game end bc it carries out regardless of outcome of main game
+	if insuring:
+		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
+		if dealerHand.isNaturalBlackjack():
+			print('insure bet won')
+			GameManager.changeMoney(insuranceBet * 3)
 	$PlayerButtons.disableButtons()
 	$ContinueButton.show()
 
 func _on_continue_button_pressed() -> void:
 	newGame()
 
-func _on_bet_bet_submitted(amount: int) -> void:
-	bet = amount
-	$MainChips.setChips(bet)
-	play()
+func _on_bet_bet_submitted(amount: int, purpose: String) -> void:
+	match purpose:
+		"bet":
+			bet = amount
+			# subtract bet here
+			GameManager.changeMoney(-bet)
+			$MainChips.setChips(bet)
+			play()
+		"insurance":
+			insuranceBet = amount
+			GameManager.changeMoney(-insuranceBet)
+			$InsuranceChips.setChips(insuranceBet)
+		_:
+			push_error('unknown bet slider purpose' + purpose)
 
 func play() -> void:
-	# subtract bet
-	GameManager.changeMoney(-bet)
-
 	# create decks
 	mainDeck = GameManager.createDeck()
 	playerHand = Deck.new([])
@@ -46,8 +63,10 @@ func play() -> void:
 	# deal initial cards
 	playerHand.addCard(mainDeck.drawRandom())
 	playerHand.addCard(mainDeck.drawRandom())
-	dealerHand.addCard(mainDeck.drawRandom())
-	dealerHand.addCard(mainDeck.drawRandom(), true)
+	#dealerHand.addCard(mainDeck.drawRandom())
+	#dealerHand.addCard(mainDeck.drawRandom(), true)
+	dealerHand.addCard(mainDeck.drawRigged('A'))
+	dealerHand.addCard(mainDeck.drawRigged('10'), true)
 
 	# check natural blackjack
 	if playerHand.isNaturalBlackjack():
@@ -60,10 +79,20 @@ func play() -> void:
 	if playerHand.getCard(0).compareRank(playerHand.getCard(1)):
 		print('splittable')
 
+	# check insurance
+	if dealerHand.getCard(0).rank == 'A':
+		print('insurable')
+		$InsuranceButton.show()
+
 	# player draw
 	$PlayerButtons.enableButtons()
 
 	return
+
+func _on_insurance_button_pressed() -> void:
+	insuring = true
+	$Bet.startBetting(int(floor(bet / 2.0)), 'insurance')
+	$InsuranceButton.hide()
 
 # 4 player options. these signals are middleman signals from $PlayerButtons
 func _on_player_hit() -> void:
@@ -101,7 +130,6 @@ func _on_player_surrender() -> void:
 
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
-	# TODO: check insurance win
 	while not dealerHand.isEndForDealer():
 		dealerHand.addCard(mainDeck.drawRandom())
 	if dealerHand.isBusted():
