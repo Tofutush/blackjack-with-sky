@@ -80,12 +80,31 @@ offset_right = 148.80005
 offset_bottom = 53.359985
 text = "Continue"
 
-[node name="Chips" parent="." instance=ExtResource("7_q8kdv")]
+[node name="MainChips" parent="." instance=ExtResource("7_q8kdv")]
 layout_mode = 1
-offset_left = 623.0
-offset_top = 590.0
-offset_right = 623.64
-offset_bottom = 589.88
+anchors_preset = -1
+anchor_left = 0.30400002
+anchor_top = 0.522
+anchor_right = 0.30400002
+anchor_bottom = 0.522
+offset_left = 0.3199463
+offset_top = 0.23999023
+offset_right = 0.3199463
+offset_bottom = 0.23999023
+
+[node name="SplitChips" parent="." instance=ExtResource("7_q8kdv")]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 456.0
+offset_right = 479.0
+offset_bottom = 456.0
+
+[node name="InsuranceChips" parent="." instance=ExtResource("7_q8kdv")]
+layout_mode = 0
+offset_left = 1097.0
+offset_top = 648.0
+offset_right = 1097.0
+offset_bottom = 648.0
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
