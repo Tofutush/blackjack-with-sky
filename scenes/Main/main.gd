@@ -81,8 +81,13 @@ func play() -> void:
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
-		print('insurable')
 		$InsuranceButton.show()
+		if bet == 1:
+			$InsuranceButton.disabled = true
+			$InsuranceButton.tooltip_text = "Bet too low."
+		if GameManager.money == 0:
+			$InsuranceButton.disabled = true
+			$InsuranceButton.tooltip_text = "Not enough money."
 
 	# player draw
 	$PlayerButtons.enableButtons()
