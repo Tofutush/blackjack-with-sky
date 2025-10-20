@@ -29,7 +29,7 @@ func _on_continue_button_pressed() -> void:
 
 func _on_bet_bet_submitted(amount: int) -> void:
 	bet = amount
-	$MainChips.showChips(bet)
+	$MainChips.setChips(bet)
 	play()
 
 func play() -> void:
@@ -80,7 +80,7 @@ func _on_player_double_down() -> void:
 		push_error('not enough money to double down')
 	GameManager.changeMoney(-bet)
 	bet *= 2
-	$MainChips.showChips(bet)
+	$MainChips.doubleChips()
 	playerHand.addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButtons()
 	if playerHand.isBusted():
