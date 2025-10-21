@@ -2,7 +2,6 @@ extends Resource
 class_name Deck
 
 var deck: Array[Card]
-var display: DeckDisplay
 
 # we're using the same class for player, dealer, and the drawpile and well, we were supposed to make inherited classes, but most of the time each class only gets 1 instance so whats the point? so some of the methods here are exclusive to player / dealer / drawpile. just use them properly and youll be fine
 
@@ -30,17 +29,9 @@ func drawRigged(rank: String) -> Card:
 	return deck.pop_at(deck.find_custom(func(card: Card): return card.rank == rank))
 
 # player & dealer
-func linkDisplay(display1: DeckDisplay):
-	# auto-update the DeckDisplay
-	display = display1
-	display.deck = self
-	display.clear()
-	for card in deck:
-		display.addCard(card)
 
 func addCard(card: Card, back = false) -> Deck:
 	deck.append(card)
-	if display: display.addCard(card, back)
 	return self
 
 func getValue() -> Dictionary:
@@ -147,6 +138,4 @@ func isSplittable() -> bool:
 
 func split() -> Deck:
 	if !deck.size() == 2: push_error('you can only split on 2-card decks')
-	if display:
-		display.removeCard(1)
 	return Deck.new([deck.pop_back()])
