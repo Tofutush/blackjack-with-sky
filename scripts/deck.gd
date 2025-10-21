@@ -130,12 +130,9 @@ func isBusted() -> bool:
 
 func isEndForDealer() -> bool:
 	var total = getValue()
-	if isNaturalBlackjack():
-		return true
 	if total['soft']:
-		if total['value'][0] >= 17:
-			# same logic, here all values are larger than / equal to 17
-			return true
+		if total['value'].has(21): return true
+		if total['value'][0] >= 17: return true
 		if total['value'].any(func(number): return number < 17) and total['value'].any(func(number): return number >= 17):
 			# this is if we have over 17 ones and under 17 ones. we decide based on the setting
 			return GameManager.standOnSoft17
