@@ -102,6 +102,7 @@ func _on_insurance_button_pressed() -> void:
 # 4 player options. these signals are middleman signals from $PlayerButtons
 func _on_player_hit() -> void:
 	playerHand.addCard(mainDeck.drawRandom())
+	$PlayerButtons.hideDoubleDownButton()
 	if playerHand.isBusted():
 		print('you bust! you lose!')
 		endGame()

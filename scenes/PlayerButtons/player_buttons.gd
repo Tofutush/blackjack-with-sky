@@ -1,24 +1,33 @@
-extends VBoxContainer
+extends HBoxContainer
 
 signal hit
 signal stand
 signal double_down
 signal surrender
 
+@onready var hit_button: Button = $HBoxContainer/HitButton
+@onready var stand_button: Button = $HBoxContainer/StandButton
+@onready var double_down_button: Button = $DoubleDownButton
+@onready var surrender_button: Button = $HBoxContainer/SurrenderButton
+
 func _ready() -> void:
 	disableButtons()
 
 func disableButtons() -> void:
-	$HitButton.disabled = true
-	$StandButton.disabled = true
-	$DoubleDownButton.disabled = true
-	$SurrenderButton.disabled = true
+	hit_button.disabled = true
+	stand_button.disabled = true
+	double_down_button.disabled = true
+	surrender_button.disabled = true
+
+func hideDoubleDownButton() -> void:
+	double_down_button.hide()
 
 func enableButtons() -> void:
-	$HitButton.disabled = false
-	$StandButton.disabled = false
-	$DoubleDownButton.disabled = false
-	$SurrenderButton.disabled = false
+	hit_button.disabled = false
+	stand_button.disabled = false
+	double_down_button.disabled = false
+	surrender_button.disabled = false
+	double_down_button.show()
 
 func _on_hit_button_pressed() -> void:
 	hit.emit()
