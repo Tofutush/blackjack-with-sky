@@ -116,6 +116,7 @@ func toString() -> String:
 		string += card.toString() + ', '
 	return string
 
+# checks
 func isNaturalBlackjack() -> bool:
 	var total = getValue()
 	# must be one ace (soft) and one 10
@@ -138,3 +139,7 @@ func isEndForDealer() -> bool:
 			return GameManager.standOnSoft17
 		return false
 	return total['value'] >= 17
+
+func isSplittable() -> bool:
+	if !deck.size() == 2: return false
+	return deck[0].compareRank(deck[1])

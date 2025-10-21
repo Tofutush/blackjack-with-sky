@@ -2,8 +2,8 @@ extends Control
 
 var mainDeck: Deck
 var dealerHand: Deck
-var playerHand: Deck
-var playerHand2: Deck
+var playerHands: Array[Deck]
+var playerIdx: int
 
 var bet: int
 var insuranceBet: int
@@ -56,28 +56,29 @@ func _on_bet_bet_submitted(amount: int, purpose: String) -> void:
 func play() -> void:
 	# create decks
 	mainDeck = GameManager.createDeck()
-	playerHand = Deck.new([])
-	playerHand.linkDisplay($PlayerDeckDisplay)
+	playerHands = [Deck.new([])]
+	playerIdx = 0
+	playerHands[0].linkDisplay($PlayerDeckDisplay)
 	dealerHand = Deck.new([])
 	dealerHand.linkDisplay($DealerDeckDisplay)
 
 	# deal initial cards
-	playerHand.addCard(mainDeck.drawRandom())
-	playerHand.addCard(mainDeck.drawRandom())
-	#dealerHand.addCard(mainDeck.drawRandom())
-	#dealerHand.addCard(mainDeck.drawRandom(), true)
-	dealerHand.addCard(mainDeck.drawRigged('A'))
-	dealerHand.addCard(mainDeck.drawRigged('10'), true)
+	playerHands[0].addCard(mainDeck.drawRandom())
+	playerHands[0].addCard(mainDeck.drawRandom())
+	dealerHand.addCard(mainDeck.drawRandom())
+	dealerHand.addCard(mainDeck.drawRandom(), true)
+	#dealerHand.addCard(mainDeck.drawRigged('A'))
+	#dealerHand.addCard(mainDeck.drawRigged('10'), true)
 
 	# check natural blackjack
-	if playerHand.isNaturalBlackjack():
+	if playerHands[0].isNaturalBlackjack():
 		print('natural blackjack! you win!')
 		GameManager.changeMoney(floor(bet * 1.5))
 		endGame()
 		return
 
 	# check split
-	if playerHand.getCard(0).compareRank(playerHand.getCard(1)):
+	if playerHands[0].isSplittable():
 		print('splittable')
 		$SplitButton.show()
 
@@ -103,9 +104,9 @@ func _on_insurance_button_pressed() -> void:
 
 # 4 player options. these signals are middleman signals from $PlayerButtons
 func _on_player_hit() -> void:
-	playerHand.addCard(mainDeck.drawRandom())
+	playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.hideDoubleDownButton()
-	if playerHand.isBusted():
+	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
 		endGame()
 
@@ -118,9 +119,9 @@ func _on_player_double_down() -> void:
 	GameManager.changeMoney(-bet)
 	bet *= 2
 	$MainChips.doubleChips()
-	playerHand.addCard(mainDeck.drawRandom())
+	playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButtons()
-	if playerHand.isBusted():
+	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
 		endGame()
 		return
@@ -144,7 +145,7 @@ func dealerDrawLoop() -> void:
 		GameManager.changeMoney(bet * 2)
 		print('dealer over, you win')
 	else:
-		var result = playerHand.compareValue(dealerHand)
+		var result = playerHands[playerIdx].compareValue(dealerHand)
 		match result:
 			0:
 				GameManager.changeMoney(bet)
