@@ -3,7 +3,7 @@ extends Control
 var mainDeck: Deck
 var dealerHand: Deck
 var playerHands: Array[Deck]
-var playerIdx: int
+var playerIdx: int # what hand is the player on, for splitting
 
 var bet: int
 var insuranceBet: int
@@ -17,7 +17,6 @@ func newGame() -> void:
 	$InsuranceButton.hide()
 	$SplitButton.hide()
 	$MainChips.hide()
-	$SplitChips.hide()
 	$InsuranceChips.hide()
 	$Bet.startBetting(GameManager.money, "bet")
 	$PlayerButtons.disableButtons()
@@ -63,8 +62,10 @@ func play() -> void:
 	dealerHand.linkDisplay($DealerDeckDisplay)
 
 	# deal initial cards
-	playerHands[0].addCard(mainDeck.drawRandom())
-	playerHands[0].addCard(mainDeck.drawRandom())
+	#playerHands[0].addCard(mainDeck.drawRandom())
+	#playerHands[0].addCard(mainDeck.drawRandom())
+	playerHands[0].addCard(mainDeck.drawRigged('3'))
+	playerHands[0].addCard(mainDeck.drawRigged('3'))
 	dealerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom(), true)
 	#dealerHand.addCard(mainDeck.drawRigged('A'))
@@ -81,6 +82,9 @@ func play() -> void:
 	if playerHands[0].isSplittable():
 		print('splittable')
 		$SplitButton.show()
+		if GameManager.money < bet:
+			$SplitButton.disabled = true
+			$SplitButton.tooltip_text = "Not enough money."
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
@@ -96,6 +100,9 @@ func play() -> void:
 	$PlayerButtons.enableButtons()
 
 	return
+
+func _on_split_button_pressed() -> void:
+	playerHands.append(playerHands[playerIdx].split())
 
 func _on_insurance_button_pressed() -> void:
 	insuring = true

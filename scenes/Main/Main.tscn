@@ -103,13 +103,6 @@ offset_top = 0.23999023
 offset_right = 0.3199463
 offset_bottom = 0.23999023
 
-[node name="SplitChips" parent="." instance=ExtResource("7_q8kdv")]
-layout_mode = 0
-offset_left = 479.0
-offset_top = 456.0
-offset_right = 479.0
-offset_bottom = 456.0
-
 [node name="InsuranceChips" parent="." instance=ExtResource("7_q8kdv")]
 layout_mode = 0
 offset_left = 1097.0
@@ -135,5 +128,6 @@ text = "Buy insurance"
 [connection signal="hit" from="PlayerButtons" to="." method="_on_player_hit"]
 [connection signal="stand" from="PlayerButtons" to="." method="_on_player_stand"]
 [connection signal="surrender" from="PlayerButtons" to="." method="_on_player_surrender"]
+[connection signal="pressed" from="SplitButton" to="." method="_on_split_button_pressed"]
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="InsuranceButton" to="." method="_on_insurance_button_pressed"]

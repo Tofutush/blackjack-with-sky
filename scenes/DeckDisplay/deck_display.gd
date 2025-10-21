@@ -19,6 +19,9 @@ func addCard(card: Card, back = false) -> void:
 	else: sprite.showFront()
 	add_child(sprite)
 
+func removeCard(idx: int) -> void:
+	get_child(idx).queue_free()
+
 func turnLastBackCard() -> void:
 	if deck and get_child_count() != 0:
 		var child = get_child(get_child_count() - 1)

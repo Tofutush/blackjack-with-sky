@@ -40,8 +40,7 @@ func linkDisplay(display1: DeckDisplay):
 
 func addCard(card: Card, back = false) -> Deck:
 	deck.append(card)
-	if display:
-		display.addCard(card, back)
+	if display: display.addCard(card, back)
 	return self
 
 func getValue() -> Dictionary:
@@ -143,3 +142,11 @@ func isEndForDealer() -> bool:
 func isSplittable() -> bool:
 	if !deck.size() == 2: return false
 	return deck[0].compareRank(deck[1])
+
+# player - split
+
+func split() -> Deck:
+	if !deck.size() == 2: push_error('you can only split on 2-card decks')
+	if display:
+		display.removeCard(1)
+	return Deck.new([deck.pop_back()])
