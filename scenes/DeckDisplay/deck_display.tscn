@@ -1,15 +1,18 @@
 [gd_scene load_steps=3 format=3 uid="uid://gk6yldhrov2y"]
 
-[ext_resource type="Texture2D" uid="uid://bsppoymneohor" path="res://assets/cards.png" id="1_ap2lk"]
 [ext_resource type="Script" uid="uid://ygr8hs6rqm0g" path="res://scenes/DeckDisplay/deck_display.gd" id="1_k3004"]
+[ext_resource type="PackedScene" uid="uid://dnimx4rlh7ejx" path="res://scenes/CardDisplay/card_display.tscn" id="3_6w2jv"]
 
 [node name="DeckDisplay" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_k3004")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ap2lk")
-centered = false
-region_enabled = true
-region_rect = Rect2(209, 0, 209, 294)
+[node name="CardDisplay" parent="." instance=ExtResource("3_6w2jv")]
+layout_mode = 0
+
+[node name="CardDisplay2" parent="." instance=ExtResource("3_6w2jv")]
+layout_mode = 0
+offset_left = 39.0
+offset_right = 248.0
+offset_bottom = 294.0

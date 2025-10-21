@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnimx4rlh7ejx"]
+
+[ext_resource type="Texture2D" uid="uid://bsppoymneohor" path="res://assets/cards.png" id="1_8ewbe"]
+[ext_resource type="Script" uid="uid://br1m56mbr2t82" path="res://scenes/CardDisplay/card_display.gd" id="2_mqors"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3004"]
+atlas = ExtResource("1_8ewbe")
+region = Rect2(0, 0, 209, 294)
+
+[node name="CardDisplay" type="TextureRect"]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_k3004")
+script = ExtResource("2_mqors")
