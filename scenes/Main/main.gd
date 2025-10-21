@@ -15,6 +15,7 @@ func _ready() -> void:
 func newGame() -> void:
 	$ContinueButton.hide()
 	$InsuranceButton.hide()
+	$SplitButton.hide()
 	$MainChips.hide()
 	$SplitChips.hide()
 	$InsuranceChips.hide()
@@ -78,6 +79,7 @@ func play() -> void:
 	# check split
 	if playerHand.getCard(0).compareRank(playerHand.getCard(1)):
 		print('splittable')
+		$SplitButton.show()
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
