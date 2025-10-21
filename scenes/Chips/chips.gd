@@ -1,58 +1,61 @@
 extends Control
 
-var white # $1
-var red # $5
-var blue # $10
-var green # $25
-var black # $100
+const WIDTH = 100
+const HEIGHT = 55
+const REGIONS = {
+	'red': Vector2(0, 0),
+	'white': Vector2(0, HEIGHT),
+	'blue': Vector2(0, HEIGHT * 2),
+	'green': Vector2(0, HEIGHT * 3),
+	'black': Vector2(0, HEIGHT * 4)
+}
+
+var dict = {
+	'white': 0, # $1
+	'red': 0, # $5
+	'blue': 0, # $10
+	'green': 0, # $25
+	'black': 0 # $100
+}
+
+var img = preload("res://assets/chip red.png")
 
 func _ready() -> void:
-	hide()
+	clearChips()
 
 func setChips(number: int) -> void:
-	var dict = calcNumber(number)
-	black = dict['black']
-	green = dict['green']
-	blue = dict['blue']
-	red = dict['red']
-	white = dict['white']
+	dict = calcNumber(number)
 	showChips()
 
 func doubleChips() -> void:
-	black *= 2
-	green *= 2
-	blue *= 2
-	red *= 2
-	white *= 2
+	for key in dict:
+		dict[key] *= 2
 	showChips()
 
 func showChips() -> void:
-	var string = ''
-	if black != 0: string += str(black) + ' black, '
-	if green != 0: string += str(green) + ' green, '
-	if blue != 0: string += str(blue) + ' blue, '
-	if red != 0: string += str(red) + ' red, '
-	if white != 0: string += str(white) + ' white, '
-	$Label.text = string
+	for key in dict:
+		if dict[key] != 0:
+			var node = VBoxContainer.new()
+			node.alignment = BoxContainer.ALIGNMENT_END
+			node.add_theme_constant_override('separation', -35)
+			for i in dict[key]:
+				var sprite = TextureRect.new()
+				sprite.texture = AtlasTexture.new()
+				sprite.texture.atlas = img
+				sprite.texture.region = Rect2(REGIONS[key], Vector2(WIDTH, HEIGHT))
+				sprite.z_index = dict[key] - i
+				node.add_child(sprite)
+			$HBoxContainer.add_child(node)
 	show()
 
 func clearChips() -> void:
-	black = 0
-	green = 0
-	blue = 0
-	red = 0
-	white = 0
-	$Label.text = ''
+	for key in dict:
+		dict[key] = 0
+	for child in $HBoxContainer.get_children():
+		child.queue_free()
 	hide()
 
 func calcNumber(number: int) -> Dictionary:
-	var dict = {
-		'black': 0,
-		'green': 0,
-		'blue': 0,
-		'red': 0,
-		'white': 0
-	}
 	dict['black'] = int(floor(number / 100.0))
 	number = number % 100
 	dict['green'] = int(floor(number / 25.0))

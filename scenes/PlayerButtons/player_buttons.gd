@@ -2,32 +2,45 @@ extends HBoxContainer
 
 signal hit
 signal stand
-signal double_down
 signal surrender
+signal insurance
+signal split
+signal double_down
 
-@onready var hit_button: Button = $HBoxContainer/HitButton
-@onready var stand_button: Button = $HBoxContainer/StandButton
-@onready var double_down_button: Button = $DoubleDownButton
-@onready var surrender_button: Button = $HBoxContainer/SurrenderButton
+var dict: Dictionary[String, Button]
 
 func _ready() -> void:
+	dict = {
+		'hit': $Right/HitButton,
+		'stand': $Right/StandButton,
+		'surrender': $Right/SurrenderButton,
+		'insurance': $Left/InsuranceButton,
+		'split': $Left/SplitButton,
+		'double down': $Left/DoubleDownButton
+	}
 	disableButtons()
 
 func disableButtons() -> void:
-	hit_button.disabled = true
-	stand_button.disabled = true
-	double_down_button.disabled = true
-	surrender_button.disabled = true
+	# disable every button
+	for key in dict:
+		dict[key].disabled = true
 
-func hideDoubleDownButton() -> void:
-	double_down_button.hide()
+func disableButton(key: String) -> void:
+	if !dict[key]: push_error('button doesnt exist: ' + key)
+	dict[key].disabled = true
 
 func enableButtons() -> void:
-	hit_button.disabled = false
-	stand_button.disabled = false
-	double_down_button.disabled = false
-	surrender_button.disabled = false
-	double_down_button.show()
+	# enable all buttons
+	for key in dict:
+		dict[key].disabled = false
+
+func enableButton(key: String) -> void:
+	if !dict[key]: push_error('button doesnt exist: ' + key)
+	dict[key].disabled = false
+
+func setButtonTooltip(button: String, text: String) -> void:
+	if !dict[button]: push_error('button doesnt exist: ' + button)
+	dict[button].tooltip_text = text
 
 func _on_hit_button_pressed() -> void:
 	hit.emit()
@@ -35,8 +48,14 @@ func _on_hit_button_pressed() -> void:
 func _on_stand_button_pressed() -> void:
 	stand.emit()
 
-func _on_double_down_button_pressed() -> void:
-	double_down.emit()
-
 func _on_surrender_button_pressed() -> void:
 	surrender.emit()
+
+func _on_insurance_button_pressed() -> void:
+	insurance.emit()
+
+func _on_split_button_pressed() -> void:
+	split.emit()
+
+func _on_double_down_button_pressed() -> void:
+	double_down.emit()
