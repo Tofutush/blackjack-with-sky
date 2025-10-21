@@ -44,18 +44,6 @@ offset_right = 0.0
 offset_bottom = 0.15997314
 metadata/_edit_use_anchors_ = true
 
-[node name="SplitButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0296875
-anchor_top = 0.60555553
-anchor_right = 0.0296875
-anchor_bottom = 0.60555553
-offset_right = 76.0
-offset_bottom = 53.0
-text = "Split"
-metadata/_edit_use_anchors_ = true
-
 [node name="PlayerDeckDisplay" parent="." instance=ExtResource("6_q8kdv")]
 layout_mode = 1
 anchors_preset = -1
@@ -120,5 +108,4 @@ offset_right = 0.67993164
 [connection signal="split" from="PlayerButtons" to="." method="_on_player_split"]
 [connection signal="stand" from="PlayerButtons" to="." method="_on_player_stand"]
 [connection signal="surrender" from="PlayerButtons" to="." method="_on_player_surrender"]
-[connection signal="pressed" from="SplitButton" to="." method="_on_split_button_pressed"]
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]

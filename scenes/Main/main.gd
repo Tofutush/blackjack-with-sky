@@ -79,10 +79,10 @@ func play() -> void:
 	# check split
 	if playerHands[0].isSplittable():
 		print('splittable')
-		$SplitButton.show()
+		$PlayerButtons.enableButton('split')
 		if GameManager.money < bet:
-			$SplitButton.disabled = true
-			$SplitButton.tooltip_text = "Not enough money."
+			$PlayerButtons.disableButton('split')
+			$PlayerButtons.setButtonTooltip('split', 'Not enough money.')
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
@@ -138,9 +138,6 @@ func _on_player_insurance() -> void:
 	insuring = true
 	$Bet.startBetting(int(floor(bet / 2.0)), 'insurance')
 	$PlayerButtons.disableButton('insurance')
-
-func _on_player_split() -> void:
-	pass # Replace with function body.
 
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
