@@ -8,7 +8,7 @@ signal money_changed(amount: int)
 func createDeck() -> Deck:
 	const suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
 	const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-	var cards = []
+	var cards: Array[Card] = []
 	for rank in ranks:
 		for suit in suits:
 			var card = Card.new(suit, rank)

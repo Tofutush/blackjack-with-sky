@@ -1,12 +1,12 @@
 extends Resource
 class_name Deck
 
-var deck: Array
+var deck: Array[Card]
 var display: DeckDisplay
 
 # we're using the same class for player, dealer, and the drawpile and well, we were supposed to make inherited classes, but most of the time each class only gets 1 instance so whats the point? so some of the methods here are exclusive to player / dealer / drawpile. just use them properly and youll be fine
 
-func _init(deck1: Array) -> void:
+func _init(deck1: Array[Card]) -> void:
 	deck = deck1
 
 # general
