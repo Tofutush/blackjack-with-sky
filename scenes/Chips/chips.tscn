@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8g3e880xcpaw"]
+[gd_scene load_steps=4 format=3 uid="uid://b8g3e880xcpaw"]
 
 [ext_resource type="Script" uid="uid://iaj06qsfda01" path="res://scenes/Chips/chips.gd" id="1_ih08h"]
+[ext_resource type="Texture2D" uid="uid://b6ce4uctuveds" path="res://assets/chip red.png" id="2_liyhb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_liyhb"]
+atlas = ExtResource("2_liyhb")
 
 [node name="Chips" type="Control"]
 layout_mode = 3
@@ -17,3 +21,9 @@ text = "1W, 1B, 1G, 1R, 1B"
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_liyhb")
+stretch_mode = 3

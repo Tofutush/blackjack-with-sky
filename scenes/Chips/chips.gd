@@ -1,5 +1,15 @@
 extends Control
 
+const WIDTH = 100
+const HEIGHT = 55
+const REGIONS = {
+	'red': Vector2(0, 0),
+	'white': Vector2(0, WIDTH),
+	'blue': Vector2(0, WIDTH * 2),
+	'green': Vector2(0, WIDTH * 3),
+	'black': Vector2(0, WIDTH * 4)
+}
+
 var white # $1
 var red # $5
 var blue # $10
