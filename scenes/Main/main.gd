@@ -14,7 +14,6 @@ func _ready() -> void:
 
 func newGame() -> void:
 	$ContinueButton.hide()
-	$InsuranceButton.hide()
 	$MainChips.hide()
 	$SplitChips.hide()
 	$InsuranceChips.hide()
@@ -81,28 +80,23 @@ func play() -> void:
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
-		$InsuranceButton.show()
+		$PlayerButtons.enableButton('insurance')
 		if bet == 1:
-			$InsuranceButton.disabled = true
-			$InsuranceButton.tooltip_text = "Bet too low."
+			$PlayerButtons.disableButton('insurance')
+			$PlayerButtons.setButtonTooltip('insurance', "Bet too low.")
 		if GameManager.money == 0:
-			$InsuranceButton.disabled = true
-			$InsuranceButton.tooltip_text = "Not enough money."
+			$PlayerButtons.disableButton('insurance')
+			$PlayerButtons.setButtonTooltip('insurance', "Not enough money.")
 
 	# player draw
 	$PlayerButtons.enableButtons()
 
 	return
 
-func _on_insurance_button_pressed() -> void:
-	insuring = true
-	$Bet.startBetting(int(floor(bet / 2.0)), 'insurance')
-	$InsuranceButton.hide()
-
-# 4 player options. these signals are middleman signals from $PlayerButtons
+# 6 player options. these signals are middleman signals from $PlayerButtons
 func _on_player_hit() -> void:
 	playerHand.addCard(mainDeck.drawRandom())
-	$PlayerButtons.hideDoubleDownButton()
+	$PlayerButtons.disableButton('double down')
 	if playerHand.isBusted():
 		print('you bust! you lose!')
 		endGame()
@@ -133,6 +127,14 @@ func _on_player_surrender() -> void:
 	# 2.0 to get rid of that warning while avoiding that stupid line of code
 	GameManager.changeMoney(int(floor(bet / 2.0)))
 	endGame()
+
+func _on_player_insurance() -> void:
+	insuring = true
+	$Bet.startBetting(int(floor(bet / 2.0)), 'insurance')
+	$PlayerButtons.disableButton('insurance')
+
+func _on_player_split() -> void:
+	pass # Replace with function body.
 
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()

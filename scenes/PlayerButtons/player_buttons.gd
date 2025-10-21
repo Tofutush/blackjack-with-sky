@@ -26,12 +26,21 @@ func disableButtons() -> void:
 		dict[key].disabled = true
 
 func disableButton(key: String) -> void:
-	if dict[key]: dict[key].disabled = true
+	if !dict[key]: push_error('button doesnt exist: ' + key)
+	dict[key].disabled = true
 
 func enableButtons() -> void:
 	# enable all buttons
 	for key in dict:
 		dict[key].disabled = false
+
+func enableButton(key: String) -> void:
+	if !dict[key]: push_error('button doesnt exist: ' + key)
+	dict[key].disabled = false
+
+func setButtonTooltip(button: String, text: String) -> void:
+	if !dict[button]: push_error('button doesnt exist: ' + button)
+	dict[button].tooltip_text = text
 
 func _on_hit_button_pressed() -> void:
 	hit.emit()
