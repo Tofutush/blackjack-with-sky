@@ -104,11 +104,14 @@ offset_right = 0.3199463
 offset_bottom = 0.23999023
 
 [node name="InsuranceChips" parent="." instance=ExtResource("7_q8kdv")]
-layout_mode = 0
-offset_left = 1097.0
-offset_top = 648.0
-offset_right = 1097.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.57100004
+anchor_top = 0.6
+anchor_right = 0.57100004
+anchor_bottom = 0.6
+offset_left = 0.67993164
+offset_right = 0.67993164
 
 [node name="InsuranceButton" type="Button" parent="."]
 layout_mode = 1
