@@ -1,6 +1,9 @@
 extends Control
 class_name DeckDisplay
 
+const OFFSET = 38
+const BEGINNING = 76
+
 var deck: Deck
 
 func _ready() -> void:
@@ -14,7 +17,8 @@ func addCard(card: Card, back = false) -> void:
 	var sprite = preload("res://scenes/CardDisplay/card_display.tscn").instantiate()
 	sprite.card = card
 	# offsets it by 38 * the number of children it has already so it shows the side of the prev card
-	sprite.position = Vector2(38 * get_child_count(), 0)
+	print(get_child_count())
+	sprite.position = Vector2(BEGINNING + OFFSET * (get_child_count() - 1), 0)
 	if back: sprite.showBack()
 	else: sprite.showFront()
 	add_child(sprite)

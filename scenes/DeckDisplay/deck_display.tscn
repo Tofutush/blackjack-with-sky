@@ -12,3 +12,9 @@ script = ExtResource("1_k3004")
 layout_mode = 1
 offset_right = 209.0
 offset_bottom = 294.0
+
+[node name="CardDisplay2" parent="." instance=ExtResource("3_6w2jv")]
+layout_mode = 0
+offset_left = 38.0
+offset_right = 247.0
+offset_bottom = 294.0
