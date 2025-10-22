@@ -16,6 +16,7 @@ var playerIdx: int # what hand is the player on, for splitting
 var bet: int
 var insuranceBet: int
 var insuring: bool
+var splittingAces: bool # only true if strict splitting is on
 
 func _ready() -> void:
 	newGame()
@@ -133,6 +134,10 @@ func play() -> void:
 	return
 
 func checkSplit() -> void:
+	if GameManager.strictSplitting && playerHands.size() == 4:
+		$PlayerButtons.disableButton('split')
+		$PlayerButtons.setButtonTooltip('split', 'You have 4 hands already.')
+		return
 	if playerHands[playerIdx].isSplittable():
 		$PlayerButtons.enableButton('split')
 		if GameManager.money < bet:
@@ -201,6 +206,9 @@ func _on_player_split() -> void:
 	newChipDisplay.position = CHIP_INITIAL_POS + Vector2(20, 20) * playerChipDisplays.size()
 	$PlayerChipDisplays.add_child(newChipDisplay)
 	newChipDisplay.setChips(bet)
+
+	if GameManager.strictSplitting && newPlayerHand.getCard(0).rank == 'A':
+		splittingAces = true
 
 	$PlayerButtons.disableButton('split')
 
