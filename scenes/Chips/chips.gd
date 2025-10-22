@@ -54,7 +54,7 @@ func showChips() -> void:
 func clearChips() -> void:
 	for key in dict:
 		dict[key] = 0
-	hide()
+	clearDisplay()
 
 func clearDisplay() -> void:
 	for child in $HBoxContainer.get_children():

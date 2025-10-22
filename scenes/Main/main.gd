@@ -34,6 +34,7 @@ func newGame() -> void:
 
 func endGame() -> void:
 	# this is the TRUE endGame, when all hands have been played
+
 	# check insurance on game end bc it carries out regardless of outcome of main game
 	if insuring:
 		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
@@ -41,6 +42,30 @@ func endGame() -> void:
 			print('insure bet won')
 			GameManager.changeMoney(insuranceBet * 3)
 	$PlayerButtons.disableButtons()
+	if dealerHand.isBusted():
+		print('dealer over, so all your hands that have not busted will win')
+		var count = 0
+		for i in playerHands:
+			if !i.isBusted():
+				count += 1
+				GameManager.changeMoney(bet * 2)
+		print(str(count) + ' hand(s) have won')
+		endGame()
+	else:
+		for i in len(playerHands):
+			if !playerHands[i].isBusted():
+				var result = playerHands[i].compareValue(dealerHand)
+				match result:
+					0:
+						GameManager.changeMoney(bet)
+						print('hand ' + str(i + 1) + ' push')
+					1:
+						GameManager.changeMoney(bet * 2)
+						print('hand ' + str(i + 1) + ' win')
+					-1:
+						print('hand ' + str(i + 1) + ' lose')
+					_:
+						push_error('somehow result is ' + str(result))
 	$ContinueButton.show()
 
 func endHand() -> void:
@@ -219,22 +244,8 @@ func _on_player_split() -> void:
 
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
-	while not dealerHand.isEndForDealer():
-		dealerHand.addCard(mainDeck.drawRandom())
-	if dealerHand.isBusted():
-		GameManager.changeMoney(bet * 2)
-		print('dealer over, you win')
-	else:
-		var result = playerHands[playerIdx].compareValue(dealerHand)
-		match result:
-			0:
-				GameManager.changeMoney(bet)
-				print('push')
-			1:
-				GameManager.changeMoney(bet * 2)
-				print('you win')
-			-1:
-				print('you lose')
-			_:
-				push_error('somehow result is ' + str(result))
+	if !playerHands.all(func(hand: Deck): hand.isBusted()):
+		# dealer don't draw if all hands bust
+		while not dealerHand.isEndForDealer():
+			dealerHand.addCard(mainDeck.drawRandom())
 	endGame()
