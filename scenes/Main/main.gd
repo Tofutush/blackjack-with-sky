@@ -32,7 +32,6 @@ func newGame() -> void:
 	$Bet.startBetting(GameManager.money, "bet")
 
 func endGame() -> void:
-	print(insuring)
 	# check insurance on game end bc it carries out regardless of outcome of main game
 	if insuring:
 		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
@@ -98,13 +97,17 @@ func play() -> void:
 		endGame()
 		return
 
+	# enable them first, then disable split / insurance as fit
+	$PlayerButtons.enableButtons()
+
 	# check split
 	if playerHands[0].isSplittable():
-		print('splittable')
 		$PlayerButtons.enableButton('split')
 		if GameManager.money < bet:
 			$PlayerButtons.disableButton('split')
 			$PlayerButtons.setButtonTooltip('split', 'Not enough money.')
+	else:
+		$PlayerButtons.disableButton('split')
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
@@ -115,9 +118,8 @@ func play() -> void:
 		if GameManager.money == 0:
 			$PlayerButtons.disableButton('insurance')
 			$PlayerButtons.setButtonTooltip('insurance', "Not enough money.")
-
-	# player draw
-	$PlayerButtons.enableButtons()
+	else:
+		$PlayerButtons.disableButton('insurance')
 
 	return
 

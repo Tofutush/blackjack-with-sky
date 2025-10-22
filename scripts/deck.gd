@@ -25,8 +25,6 @@ func drawRandom() -> Card:
 	return deck.pop_back()
 
 func drawRigged(rank: String) -> Card:
-	print(deck.find_custom(func(card: Card): return card.rank == rank))
-	print(deck[deck.find_custom(func(card: Card): return card.rank == rank)])
 	return deck.pop_at(deck.find_custom(func(card: Card): return card.rank == rank))
 
 # player & dealer
