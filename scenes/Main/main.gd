@@ -32,6 +32,7 @@ func newGame() -> void:
 	$Bet.startBetting(GameManager.money, "bet")
 
 func endGame() -> void:
+	# this is the TRUE endGame, when all hands have been played
 	# check insurance on game end bc it carries out regardless of outcome of main game
 	if insuring:
 		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
@@ -40,6 +41,19 @@ func endGame() -> void:
 			GameManager.changeMoney(insuranceBet * 3)
 	$PlayerButtons.disableButtons()
 	$ContinueButton.show()
+
+func endHand() -> void:
+	# this is when you finish playing a hand
+	if playerIdx == playerHands.size() - 1:
+		# at last index, we've played through all of our hands
+		dealerDrawLoop()
+	else:
+		playerDeckDisplays[playerIdx].hide()
+		playerIdx += 1
+		playerDeckDisplays[playerIdx].show()
+		$PlayerButtons.enableButtons()
+		# you can only buy insurance at the very start
+		$PlayerButtons.disableButton('insurance')
 
 func _on_continue_button_pressed() -> void:
 	newGame()
@@ -129,7 +143,7 @@ func _on_player_hit() -> void:
 	$PlayerButtons.disableButton('double down')
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
-		endGame()
+		endHand()
 
 func _on_player_double_down() -> void:
 	# double down: bet double, hit once more, and stand
@@ -144,24 +158,43 @@ func _on_player_double_down() -> void:
 	$PlayerButtons.disableButtons()
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
-		endGame()
+		endHand()
 		return
-	dealerDrawLoop()
+	endHand()
 
 func _on_player_stand() -> void:
 	$PlayerButtons.disableButtons()
-	# dealer draw
-	dealerDrawLoop()
+	endHand()
 
 func _on_player_surrender() -> void:
 	# 2.0 to get rid of that warning while avoiding that stupid line of code
 	GameManager.changeMoney(int(floor(bet / 2.0)))
-	endGame()
+	endHand()
 
 func _on_player_insurance() -> void:
 	insuring = true
 	$Bet.startBetting(int(floor(bet / 2.0)), 'insurance')
 	$PlayerButtons.disableButton('insurance')
+
+func _on_player_split() -> void:
+	playerHands.append(playerHands[playerIdx].split())
+	var newPlayerHand = playerHands[playerHands.size() - 1]
+
+	playerDeckDisplays.append(deckDisplayScene.instantiate())
+	var newDeckDisplay = playerDeckDisplays[playerDeckDisplays.size() - 1]
+	newDeckDisplay.position = DECK_INITIAL_POS
+	newDeckDisplay.hide()
+	$PlayerDeckDisplays.add_child(newDeckDisplay)
+
+	newPlayerHand.linkDisplay(newDeckDisplay)
+
+	playerChipDisplays.append(chipsScene.instantiate())
+	var newChipDisplay = playerChipDisplays[playerChipDisplays.size() - 1]
+	newChipDisplay.position = CHIP_INITIAL_POS + Vector2(20, 20) * playerChipDisplays.size()
+	$PlayerChipDisplays.add_child(newChipDisplay)
+	newChipDisplay.setChips(bet)
+
+	$PlayerButtons.disableButton('split')
 
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
