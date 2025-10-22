@@ -22,7 +22,7 @@ var dict = {
 var img = preload("res://assets/chip red.png")
 
 func _ready() -> void:
-	clearChips()
+	clearDisplay()
 
 func setChips(number: int) -> void:
 	dict = calcNumber(number)
@@ -33,7 +33,9 @@ func doubleChips() -> void:
 		dict[key] *= 2
 	showChips()
 
+# TODO: currently adding more chips (double down only) will push the bottom down instead of highering — fix that
 func showChips() -> void:
+	clearDisplay()
 	for key in dict:
 		if dict[key] != 0:
 			var node = VBoxContainer.new()
@@ -52,9 +54,11 @@ func showChips() -> void:
 func clearChips() -> void:
 	for key in dict:
 		dict[key] = 0
+	hide()
+
+func clearDisplay() -> void:
 	for child in $HBoxContainer.get_children():
 		child.queue_free()
-	hide()
 
 func calcNumber(number: int) -> Dictionary:
 	dict['black'] = int(floor(number / 100.0))
