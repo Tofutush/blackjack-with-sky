@@ -190,20 +190,25 @@ func _on_player_insurance() -> void:
 func _on_player_split() -> void:
 	GameManager.changeMoney(-bet)
 
+	# for each hand we split, we need a Deck, a DeckDisplay, and a Chips.
+	# this is Deck
 	playerHands.append(playerHands[playerIdx].split())
 	var newPlayerHand = playerHands[playerHands.size() - 1]
 
+	# DeckDisplay
 	playerDeckDisplays.append(deckDisplayScene.instantiate())
 	var newDeckDisplay = playerDeckDisplays[playerDeckDisplays.size() - 1]
 	newDeckDisplay.position = DECK_INITIAL_POS
 	newDeckDisplay.hide()
 	$PlayerDeckDisplays.add_child(newDeckDisplay)
 
+	# link them together
 	newPlayerHand.linkDisplay(newDeckDisplay)
 
+	# Chips
 	playerChipDisplays.append(chipsScene.instantiate())
 	var newChipDisplay = playerChipDisplays[playerChipDisplays.size() - 1]
-	newChipDisplay.position = CHIP_INITIAL_POS + Vector2(20, 20) * playerChipDisplays.size()
+	newChipDisplay.position = CHIP_INITIAL_POS + Vector2(40, 40) * (playerChipDisplays.size() - 1)
 	$PlayerChipDisplays.add_child(newChipDisplay)
 	newChipDisplay.setChips(bet)
 
