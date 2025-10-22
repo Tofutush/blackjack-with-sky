@@ -1,6 +1,8 @@
 extends Control
 class_name DeckDisplay
 
+var deck: Deck
+
 func _ready() -> void:
 	clear()
 
@@ -19,3 +21,8 @@ func addCard(card: Card, back = false) -> void:
 
 func removeCard(idx: int) -> void:
 	get_child(idx).queue_free()
+
+func turnLastBackCard() -> void:
+	if deck and get_child_count() != 0:
+		var child = get_child(get_child_count() - 1)
+		child.showFront()

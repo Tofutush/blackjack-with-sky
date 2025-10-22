@@ -1,5 +1,4 @@
 extends Control
-class_name Chips
 
 const WIDTH = 100
 const HEIGHT = 55
