@@ -1,8 +1,16 @@
 extends Control
 
+const deckDisplayScene = preload("res://scenes/DeckDisplay/deck_display.tscn")
+const chipsScene = preload("res://scenes/Chips/chips.tscn")
+
+const DECK_INITIAL_POS = Vector2(12, 540)
+const CHIP_INITIAL_POS = Vector2(460, 540)
+
 var mainDeck: Deck
 var dealerHand: Deck
 var playerHands: Array[Deck]
+var playerDeckDisplays: Array[DeckDisplay]
+var playerChipDisplays: Array[Chips]
 var playerIdx: int # what hand is the player on, for splitting
 
 var bet: int
@@ -14,12 +22,14 @@ func _ready() -> void:
 
 func newGame() -> void:
 	$ContinueButton.hide()
-	$MainChips.hide()
 	$InsuranceChips.hide()
-	$Bet.startBetting(GameManager.money, "bet")
 	$PlayerButtons.disableButtons()
-	$PlayerDeckDisplay.clear()
 	$DealerDeckDisplay.clear()
+	for child in $PlayerDeckDisplays.get_children():
+		child.queue_free()
+	for child in $PlayerChipDisplays.get_children():
+		child.queue_free()
+	$Bet.startBetting(GameManager.money, "bet")
 
 func endGame() -> void:
 	print(insuring)
@@ -41,7 +51,6 @@ func _on_bet_bet_submitted(amount: int, purpose: String) -> void:
 			bet = amount
 			# subtract bet here
 			GameManager.changeMoney(-bet)
-			$MainChips.setChips(bet)
 			play()
 		"insurance":
 			insuranceBet = amount
@@ -51,11 +60,24 @@ func _on_bet_bet_submitted(amount: int, purpose: String) -> void:
 			push_error('unknown bet slider purpose' + purpose)
 
 func play() -> void:
-	# create decks
+	# create deck
 	mainDeck = GameManager.createDeck()
+
+	# create the 3 player things: Deck, DeckDisplay, Chips; and inits
 	playerHands = [Deck.new([])]
+	playerDeckDisplays = [deckDisplayScene.instantiate()]
+	$PlayerDeckDisplays.add_child(playerDeckDisplays[0])
+	playerDeckDisplays[0].position = DECK_INITIAL_POS
+
+	playerChipDisplays = [chipsScene.instantiate()]
+	$PlayerChipDisplays.add_child(playerChipDisplays[0])
+	playerChipDisplays[0].setChips(bet)
+	playerChipDisplays[0].position = CHIP_INITIAL_POS
+
 	playerIdx = 0
-	playerHands[0].linkDisplay($PlayerDeckDisplay)
+	playerHands[0].linkDisplay(playerDeckDisplays[0])
+
+	# dealer
 	dealerHand = Deck.new([])
 	dealerHand.linkDisplay($DealerDeckDisplay)
 

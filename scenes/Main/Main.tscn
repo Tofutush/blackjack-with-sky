@@ -34,26 +34,15 @@ offset_bottom = 151.0
 
 [node name="PlayerButtons" parent="." instance=ExtResource("5_pkilc")]
 layout_mode = 1
-anchor_left = 0.94989586
-anchor_top = 0.9202222
-anchor_right = 0.94989586
-anchor_bottom = 0.9202222
-offset_left = -385.80005
-offset_top = -166.84003
+anchor_left = 0.95
+anchor_top = 0.95
+anchor_right = 0.95
+anchor_bottom = 0.95
+offset_left = -169.0
+offset_top = -166.84009
 offset_right = 0.0
 offset_bottom = 0.15997314
 metadata/_edit_use_anchors_ = true
-
-[node name="PlayerDeckDisplay" parent="." instance=ExtResource("6_q8kdv")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.025
-anchor_top = 0.683
-anchor_right = 0.025
-anchor_bottom = 0.683
-offset_top = 0.359985
-offset_bottom = 0.359985
-grow_vertical = 0
 
 [node name="DealerDeckDisplay" parent="." instance=ExtResource("6_q8kdv")]
 layout_mode = 1
@@ -79,18 +68,6 @@ offset_right = 148.80005
 offset_bottom = 53.359985
 text = "Continue"
 
-[node name="MainChips" parent="." instance=ExtResource("7_q8kdv")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.30400002
-anchor_top = 0.522
-anchor_right = 0.30400002
-anchor_bottom = 0.522
-offset_left = 0.3199463
-offset_top = 0.23999023
-offset_right = 0.3199463
-offset_bottom = 0.23999023
-
 [node name="InsuranceChips" parent="." instance=ExtResource("7_q8kdv")]
 layout_mode = 1
 anchors_preset = -1
@@ -100,6 +77,31 @@ anchor_right = 0.57100004
 anchor_bottom = 0.6
 offset_left = 0.67993164
 offset_right = 0.67993164
+
+[node name="PlayerDeckDisplays" type="Node" parent="."]
+
+[node name="PlayerDeckDisplay" parent="PlayerDeckDisplays" instance=ExtResource("6_q8kdv")]
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.683
+anchor_right = 0.025
+anchor_bottom = 0.683
+offset_top = 0.35998535
+offset_bottom = 0.35998535
+grow_vertical = 0
+
+[node name="PlayerChipDisplays" type="Node" parent="."]
+
+[node name="MainChips" parent="PlayerChipDisplays" instance=ExtResource("7_q8kdv")]
+anchors_preset = -1
+anchor_left = 0.30400002
+anchor_top = 0.522
+anchor_right = 0.30400002
+anchor_bottom = 0.522
+offset_left = 0.3199463
+offset_top = 0.23999023
+offset_right = 0.3199463
+offset_bottom = 0.23999023
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
