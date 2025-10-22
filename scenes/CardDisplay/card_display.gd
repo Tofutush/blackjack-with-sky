@@ -11,10 +11,10 @@ func _ready() -> void:
 	texture = texture.duplicate()
 
 func showFront() -> void:
-	texture.region = getRegion()
+	if texture.region != getRegion(): texture.region = getRegion()
 
 func showBack() -> void:
-	texture.region = BACK_REGION
+	if texture.region != BACK_REGION: texture.region = BACK_REGION
 
 func getRegion() -> Rect2:
 	var x: int
