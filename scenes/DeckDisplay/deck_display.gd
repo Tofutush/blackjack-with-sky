@@ -22,5 +22,5 @@ func removeCard(idx: int) -> void:
 
 func turnLastBackCard() -> void:
 	if deck and $HBoxContainer.get_child_count() != 0:
-		var child = $HBoxContainer.get_child($HBoxContainer.get_child_count() - 1)
+		var child: CardDisplay = $HBoxContainer.get_child($HBoxContainer.get_child_count() - 1)
 		child.showFront()
