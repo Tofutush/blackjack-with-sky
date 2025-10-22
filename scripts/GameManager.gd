@@ -19,4 +19,5 @@ func changeMoney(amount: int) -> void:
 	money += amount
 	# we flooring it here though i think i floor it when calling the function anyways
 	money = floor(money)
+	if money < 0: push_error('money somehow < 0, this is not possible, go check what happened')
 	money_changed.emit(money)

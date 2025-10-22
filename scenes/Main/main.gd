@@ -183,6 +183,8 @@ func _on_player_insurance() -> void:
 	$PlayerButtons.disableButton('insurance')
 
 func _on_player_split() -> void:
+	GameManager.changeMoney(-bet)
+
 	playerHands.append(playerHands[playerIdx].split())
 	var newPlayerHand = playerHands[playerHands.size() - 1]
 
