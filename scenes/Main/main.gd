@@ -52,6 +52,7 @@ func endHand() -> void:
 		playerIdx += 1
 		playerDeckDisplays[playerIdx].show()
 		$PlayerButtons.enableButtons()
+		$PlayerButtons.disableButton('split')
 		# you can only buy insurance at the very start
 		$PlayerButtons.disableButton('insurance')
 
@@ -115,13 +116,7 @@ func play() -> void:
 	$PlayerButtons.enableButtons()
 
 	# check split
-	if playerHands[0].isSplittable():
-		$PlayerButtons.enableButton('split')
-		if GameManager.money < bet:
-			$PlayerButtons.disableButton('split')
-			$PlayerButtons.setButtonTooltip('split', 'Not enough money.')
-	else:
-		$PlayerButtons.disableButton('split')
+	checkSplit()
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
@@ -137,10 +132,21 @@ func play() -> void:
 
 	return
 
+func checkSplit() -> void:
+	if playerHands[playerIdx].isSplittable():
+		$PlayerButtons.enableButton('split')
+		if GameManager.money < bet:
+			$PlayerButtons.disableButton('split')
+			$PlayerButtons.setButtonTooltip('split', 'Not enough money.')
+	else:
+		$PlayerButtons.disableButton('split')
+
 # 6 player options. these signals are middleman signals from $PlayerButtons
 func _on_player_hit() -> void:
-	playerHands[playerIdx].addCard(mainDeck.drawRandom())
+	if playerIdx == 1: playerHands[playerIdx].addCard(mainDeck.drawRigged('3'))
+	else: playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButton('double down')
+	checkSplit()
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
 		endHand()
@@ -153,7 +159,7 @@ func _on_player_double_down() -> void:
 		push_error('not enough money to double down')
 	GameManager.changeMoney(-bet)
 	bet *= 2
-	$MainChips.doubleChips()
+	playerChipDisplays[playerIdx].doubleChips()
 	playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButtons()
 	if playerHands[playerIdx].isBusted():
