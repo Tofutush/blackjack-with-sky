@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctjvnj3palpng"]
+[gd_scene load_steps=9 format=3 uid="uid://ctjvnj3palpng"]
 
 [ext_resource type="Script" uid="uid://b0gctenpjx66d" path="res://scenes/Main/main.gd" id="1_bvmdu"]
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="2_owiiy"]
 [ext_resource type="PackedScene" uid="uid://qva68m56j7ro" path="res://scenes/Bet/Bet.tscn" id="3_brr1f"]
+[ext_resource type="Texture2D" uid="uid://l8jj0ud0lwxp" path="res://assets/bg.png" id="3_exyxu"]
 [ext_resource type="PackedScene" uid="uid://dg3qjnes613ou" path="res://scenes/PlayerButtons/player_buttons.tscn" id="5_pkilc"]
 [ext_resource type="PackedScene" uid="uid://086xpid11b5m" path="res://scenes/MoneyMeter/money_meter.tscn" id="6_d463r"]
 [ext_resource type="PackedScene" uid="uid://gk6yldhrov2y" path="res://scenes/DeckDisplay/deck_display.tscn" id="6_q8kdv"]
@@ -17,6 +18,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_owiiy")
 script = ExtResource("1_bvmdu")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("3_exyxu")
 
 [node name="Bet" parent="." instance=ExtResource("3_brr1f")]
 layout_mode = 0
@@ -34,26 +41,14 @@ offset_bottom = 151.0
 
 [node name="PlayerButtons" parent="." instance=ExtResource("5_pkilc")]
 layout_mode = 1
-anchor_left = 0.94989586
-anchor_top = 0.9202222
-anchor_right = 0.94989586
-anchor_bottom = 0.9202222
-offset_left = -385.80005
-offset_top = -166.84003
+anchor_left = 0.95
+anchor_top = 0.95
+anchor_right = 0.95
+anchor_bottom = 0.95
+offset_left = -441.0
+offset_top = -166.84009
 offset_right = 0.0
-offset_bottom = 0.15997314
-metadata/_edit_use_anchors_ = true
-
-[node name="PlayerDeckDisplay" parent="." instance=ExtResource("6_q8kdv")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.025
-anchor_top = 0.683
-anchor_right = 0.025
-anchor_bottom = 0.683
-offset_top = 0.359985
-offset_bottom = 0.359985
-grow_vertical = 0
+offset_bottom = 0.15991211
 
 [node name="DealerDeckDisplay" parent="." instance=ExtResource("6_q8kdv")]
 layout_mode = 1
@@ -79,8 +74,31 @@ offset_right = 148.80005
 offset_bottom = 53.359985
 text = "Continue"
 
-[node name="MainChips" parent="." instance=ExtResource("7_q8kdv")]
+[node name="InsuranceChips" parent="." instance=ExtResource("7_q8kdv")]
 layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.57100004
+anchor_top = 0.6
+anchor_right = 0.57100004
+anchor_bottom = 0.6
+offset_left = 0.67993164
+offset_right = 0.67993164
+
+[node name="PlayerDeckDisplays" type="Node" parent="."]
+
+[node name="PlayerDeckDisplay" parent="PlayerDeckDisplays" instance=ExtResource("6_q8kdv")]
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.683
+anchor_right = 0.025
+anchor_bottom = 0.683
+offset_top = 0.35998535
+offset_bottom = 0.35998535
+grow_vertical = 0
+
+[node name="PlayerChipDisplays" type="Node" parent="."]
+
+[node name="MainChips" parent="PlayerChipDisplays" instance=ExtResource("7_q8kdv")]
 anchors_preset = -1
 anchor_left = 0.30400002
 anchor_top = 0.522
@@ -90,20 +108,6 @@ offset_left = 0.3199463
 offset_top = 0.23999023
 offset_right = 0.3199463
 offset_bottom = 0.23999023
-
-[node name="SplitChips" parent="." instance=ExtResource("7_q8kdv")]
-layout_mode = 0
-offset_left = 479.0
-offset_top = 456.0
-offset_right = 479.0
-offset_bottom = 456.0
-
-[node name="InsuranceChips" parent="." instance=ExtResource("7_q8kdv")]
-layout_mode = 0
-offset_left = 1097.0
-offset_top = 648.0
-offset_right = 1097.0
-offset_bottom = 648.0
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
