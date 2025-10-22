@@ -8,13 +8,14 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_k3004")
 
-[node name="CardDisplay" parent="." instance=ExtResource("3_6w2jv")]
-layout_mode = 1
-offset_right = 209.0
-offset_bottom = 294.0
-
-[node name="CardDisplay2" parent="." instance=ExtResource("3_6w2jv")]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 38.0
-offset_right = 247.0
-offset_bottom = 294.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = -170
+
+[node name="CardDisplay" parent="HBoxContainer" instance=ExtResource("3_6w2jv")]
+layout_mode = 2
+
+[node name="CardDisplay2" parent="HBoxContainer" instance=ExtResource("3_6w2jv")]
+layout_mode = 2
