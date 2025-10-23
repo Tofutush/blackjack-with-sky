@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctjvnj3palpng"]
+[gd_scene load_steps=9 format=3 uid="uid://ctjvnj3palpng"]
 
 [ext_resource type="Script" uid="uid://b0gctenpjx66d" path="res://scenes/Main/main.gd" id="1_bvmdu"]
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="2_owiiy"]
 [ext_resource type="PackedScene" uid="uid://qva68m56j7ro" path="res://scenes/Bet/Bet.tscn" id="3_brr1f"]
+[ext_resource type="Texture2D" uid="uid://l8jj0ud0lwxp" path="res://assets/bg.png" id="3_exyxu"]
 [ext_resource type="PackedScene" uid="uid://dg3qjnes613ou" path="res://scenes/PlayerButtons/player_buttons.tscn" id="5_pkilc"]
 [ext_resource type="PackedScene" uid="uid://086xpid11b5m" path="res://scenes/MoneyMeter/money_meter.tscn" id="6_d463r"]
 [ext_resource type="PackedScene" uid="uid://gk6yldhrov2y" path="res://scenes/DeckDisplay/deck_display.tscn" id="6_q8kdv"]
@@ -17,6 +18,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_owiiy")
 script = ExtResource("1_bvmdu")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("3_exyxu")
 
 [node name="Bet" parent="." instance=ExtResource("3_brr1f")]
 layout_mode = 0
