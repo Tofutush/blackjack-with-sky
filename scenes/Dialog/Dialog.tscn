@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvsn2prfxngft"]
+[gd_scene load_steps=4 format=3 uid="uid://dvsn2prfxngft"]
 
+[ext_resource type="Script" uid="uid://cqkl406yvf13u" path="res://scenes/Dialog/dialog.gd" id="1_bx2yw"]
 [ext_resource type="Texture2D" uid="uid://b82n8dd4055hr" path="res://assets/tail back.png" id="1_ptdee"]
 [ext_resource type="Texture2D" uid="uid://d3ci1impmd3av" path="res://assets/tail front.png" id="2_u13j6"]
 
 [node name="Dialog" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 452.0
-offset_bottom = 241.0
+script = ExtResource("1_bx2yw")
 
 [node name="TailBack" type="TextureRect" parent="."]
 texture_filter = 1
@@ -37,3 +37,8 @@ offset_right = 535.0
 offset_bottom = 106.0
 texture = ExtResource("2_u13j6")
 expand_mode = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.04
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

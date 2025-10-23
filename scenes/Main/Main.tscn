@@ -122,8 +122,6 @@ anchor_left = 0.36302084
 anchor_top = 0.23148148
 anchor_right = 0.36302084
 anchor_bottom = 0.23148148
-offset_right = 0.0
-offset_bottom = 0.0
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
