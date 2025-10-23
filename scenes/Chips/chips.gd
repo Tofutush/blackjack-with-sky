@@ -38,6 +38,12 @@ func doubleChips() -> void:
 		dict[key] *= 2
 	showChips()
 
+## triple value of current chips, and show
+func tripleChips() -> void:
+	for key in dict:
+		dict[key] *= 3
+	showChips()
+
 # TODO: currently adding more chips (double down only) will push the bottom down instead of highering — fix that
 ## show chips display
 func showChips() -> void:

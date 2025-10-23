@@ -35,12 +35,14 @@ func newGame() -> void:
 
 ## this is the TRUE endGame, when all hands have been played
 func endGame() -> void:
+	print('end game')
 	# check insurance on game end bc it carries out regardless of outcome of main game
 	if insuring:
 		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
 		if dealerHand.isNaturalBlackjack():
 			print('insure bet won')
 			GameManager.changeMoney(insuranceBet * 3)
+			$InsuranceChips.tripleChips()
 	$PlayerButtons.disableButtons()
 	if dealerHand.isBusted():
 		print('dealer over, so all your hands that have not busted will win')
@@ -60,8 +62,10 @@ func endGame() -> void:
 						print('hand ' + str(i + 1) + ' push')
 					1:
 						GameManager.changeMoney(bet * 2)
+						playerChipDisplays[i].doubleChips()
 						print('hand ' + str(i + 1) + ' win')
 					-1:
+						playerChipDisplays[i].clearChips()
 						print('hand ' + str(i + 1) + ' lose')
 					_:
 						push_error('somehow result is ' + str(result))
@@ -250,6 +254,7 @@ func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
 	if !playerHands.all(func(hand: Deck): hand.isBusted()):
 		# dealer don't draw if all hands bust
+		print('dealer drawing')
 		while not dealerHand.isEndForDealer():
 			dealerHand.addCard(mainDeck.drawRandom())
 	endGame()
