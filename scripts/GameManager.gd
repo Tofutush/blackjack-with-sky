@@ -2,7 +2,8 @@ extends Node
 
 var money := 100 ## how much money you have in total
 var standOnSoft17 := false ## whether dealer stands when they reach soft 17
-var deckNumber = 1 ## how many decks to play with, 1 - 8
+var deckNumber := 1 ## how many decks to play with, 1 - 8
+var textAnimation := true ## whether to animate letters appearing one by one
 
 ## strict splitting:
 ## - only split exact same rank
