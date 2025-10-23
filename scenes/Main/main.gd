@@ -50,7 +50,6 @@ func endGame() -> void:
 				count += 1
 				GameManager.changeMoney(bet * 2)
 		print(str(count) + ' hand(s) have won')
-		endGame()
 	else:
 		for i in len(playerHands):
 			if !playerHands[i].isBusted():
