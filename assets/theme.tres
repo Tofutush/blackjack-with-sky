@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=4 uid="uid://sfy8iivbp4g"]
+[gd_resource type="Theme" load_steps=15 format=4 uid="uid://sfy8iivbp4g"]
 
 [sub_resource type="Image" id="Image_y61vb"]
 data = {
@@ -1684,6 +1684,23 @@ cache/0/48/0/glyphs/53/texture_idx = 0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lu33j"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y61vb"]
+bg_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0.13725491, 0.42352942, 0.88235295, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 12
+expand_margin_left = 12.0
+expand_margin_top = 12.0
+expand_margin_right = 12.0
+expand_margin_bottom = 12.0
+
 [resource]
 default_font_size = 24
 Button/font_sizes/font_size = 32
@@ -1698,3 +1715,6 @@ Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 48
 Label/fonts/font = SubResource("FontFile_wl1kw")
 Label/styles/normal = SubResource("StyleBoxEmpty_lu33j")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_y61vb")
+RichTextLabel/colors/default_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+RichTextLabel/font_sizes/normal_font_size = 24
