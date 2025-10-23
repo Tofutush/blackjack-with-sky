@@ -1,12 +1,14 @@
 extends HBoxContainer
+## script for all em actions player can take. hit, stand, surrender, insurance, split, double down. mainly here to emit middleman signals
 
-signal hit
-signal stand
-signal surrender
-signal insurance
-signal split
-signal double_down
+signal hit ## player action hit
+signal stand ## player action stand
+signal surrender ## player action surrender
+signal insurance ## player action insurance
+signal split ## player action split
+signal double_down ## player action double_down
 
+## dict for quick n dirty access to buttons
 var dict: Dictionary[String, Button]
 
 func _ready() -> void:
@@ -20,24 +22,27 @@ func _ready() -> void:
 	}
 	disableButtons()
 
+## disable every button
 func disableButtons() -> void:
-	# disable every button
 	for key in dict:
 		dict[key].disabled = true
 
+## disable specific button
 func disableButton(key: String) -> void:
 	if !dict[key]: push_error('button doesnt exist: ' + key)
 	dict[key].disabled = true
 
+## enable every button
 func enableButtons() -> void:
-	# enable all buttons
 	for key in dict:
 		dict[key].disabled = false
 
+## enable specific button
 func enableButton(key: String) -> void:
 	if !dict[key]: push_error('button doesnt exist: ' + key)
 	dict[key].disabled = false
 
+## set a tooltip for button
 func setButtonTooltip(button: String, text: String) -> void:
 	if !dict[button]: push_error('button doesnt exist: ' + button)
 	dict[button].tooltip_text = text

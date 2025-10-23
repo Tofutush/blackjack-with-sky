@@ -1,4 +1,5 @@
 extends Control
+## literally startscreen
 
 func _ready() -> void:
 	$Button.grab_focus()

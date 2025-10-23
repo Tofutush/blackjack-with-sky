@@ -1,21 +1,26 @@
 extends TextureRect
 class_name CardDisplay
+## a texture atlas. UI. different from Card.
 
-const WIDTH = 209
-const HEIGHT = 294
-const BACK_REGION = Rect2(Vector2(0, HEIGHT * 4), Vector2(WIDTH, HEIGHT))
+const WIDTH = 209 ## width of cards in that img. i hope i dont change this
+const HEIGHT = 294 ## height of cards in the img
+const BACK_REGION = Rect2(Vector2(0, HEIGHT * 4), Vector2(WIDTH, HEIGHT)) ## top-left corner of the back card
 
+## the card this Display will display
 var card: Card
 
 func _ready() -> void:
 	texture = texture.duplicate()
 
+## show the front of this card
 func showFront() -> void:
 	if texture.region != getRegion(): texture.region = getRegion()
 
+## show the back of this card
 func showBack() -> void:
 	if texture.region != BACK_REGION: texture.region = BACK_REGION
 
+## get the top-left corner of the region we need to crop out
 func getRegion() -> Rect2:
 	var x: int
 	var y: int

@@ -21,6 +21,7 @@ var splittingAces: bool # only true if strict splitting is on
 func _ready() -> void:
 	newGame()
 
+## new entire round
 func newGame() -> void:
 	$ContinueButton.hide()
 	$InsuranceChips.hide()
@@ -32,9 +33,8 @@ func newGame() -> void:
 		child.queue_free()
 	$Bet.startBetting(GameManager.money, "bet")
 
+## this is the TRUE endGame, when all hands have been played
 func endGame() -> void:
-	# this is the TRUE endGame, when all hands have been played
-
 	# check insurance on game end bc it carries out regardless of outcome of main game
 	if insuring:
 		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
@@ -45,8 +45,8 @@ func endGame() -> void:
 	if dealerHand.isBusted():
 		print('dealer over, so all your hands that have not busted will win')
 		var count = 0
-		for i in playerHands:
-			if !i.isBusted():
+		for hand in playerHands:
+			if !hand.isBusted():
 				count += 1
 				GameManager.changeMoney(bet * 2)
 		print(str(count) + ' hand(s) have won')
@@ -68,8 +68,8 @@ func endGame() -> void:
 						push_error('somehow result is ' + str(result))
 	$ContinueButton.show()
 
+## this is when you finish playing a hand, not the game
 func endHand() -> void:
-	# this is when you finish playing a hand
 	if playerIdx == playerHands.size() - 1:
 		# at last index, we've played through all of our hands
 		dealerDrawLoop()
@@ -99,6 +99,7 @@ func _on_bet_bet_submitted(amount: int, purpose: String) -> void:
 		_:
 			push_error('unknown bet slider purpose' + purpose)
 
+## start game, deal initial cards, run initial checks like insurance & split
 func play() -> void:
 	# create deck
 	mainDeck = GameManager.createDeck()
@@ -158,6 +159,7 @@ func play() -> void:
 
 	return
 
+## this needs to be used twice so. negotiate enabling the split button
 func checkSplit() -> void:
 	if GameManager.strictSplitting && playerHands.size() == 4:
 		$PlayerButtons.disableButton('split')
@@ -171,7 +173,8 @@ func checkSplit() -> void:
 	else:
 		$PlayerButtons.disableButton('split')
 
-# 6 player options. these signals are middleman signals from $PlayerButtons
+### 6 player options. these signals are middleman signals from $PlayerButtons
+
 func _on_player_hit() -> void:
 	if playerIdx == 1: playerHands[playerIdx].addCard(mainDeck.drawRigged('3'))
 	else: playerHands[playerIdx].addCard(mainDeck.drawRandom())
@@ -179,6 +182,7 @@ func _on_player_hit() -> void:
 	checkSplit()
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
+		playerChipDisplays[playerIdx].clearChips()
 		endHand()
 
 func _on_player_double_down() -> void:
@@ -242,6 +246,7 @@ func _on_player_split() -> void:
 
 	$PlayerButtons.disableButton('split')
 
+## dealer draws. called every time to flip the back card, later skipped if all hands bust
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
 	if !playerHands.all(func(hand: Deck): hand.isBusted()):

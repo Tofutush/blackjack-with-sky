@@ -1,8 +1,10 @@
 extends Control
 class_name Chips
+## UI display of chips
 
-const WIDTH = 100
-const HEIGHT = 55
+const WIDTH = 100 ## width of chips in the img
+const HEIGHT = 55 ## height of chips in the img
+## regions for chip colors
 const REGIONS = {
 	'red': Vector2(0, 0),
 	'white': Vector2(0, HEIGHT),
@@ -11,6 +13,7 @@ const REGIONS = {
 	'black': Vector2(0, HEIGHT * 4)
 }
 
+## dict for chip values
 var dict = {
 	'white': 0, # $1
 	'red': 0, # $5
@@ -24,16 +27,19 @@ var img = preload("res://assets/chip red.png")
 func _ready() -> void:
 	clearDisplay()
 
+## set chip number, and show
 func setChips(number: int) -> void:
 	dict = calcNumber(number)
 	showChips()
 
+## double value of current chips, and show
 func doubleChips() -> void:
 	for key in dict:
 		dict[key] *= 2
 	showChips()
 
 # TODO: currently adding more chips (double down only) will push the bottom down instead of highering — fix that
+## show chips display
 func showChips() -> void:
 	clearDisplay()
 	for key in dict:
@@ -51,11 +57,13 @@ func showChips() -> void:
 			$HBoxContainer.add_child(node)
 	show()
 
+## sets all colors to 0
 func clearChips() -> void:
 	for key in dict:
 		dict[key] = 0
 	clearDisplay()
 
+## clears display without setting chip numbers to 0
 func clearDisplay() -> void:
 	for child in $HBoxContainer.get_children():
 		child.queue_free()

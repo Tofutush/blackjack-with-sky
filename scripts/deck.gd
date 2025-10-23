@@ -1,33 +1,44 @@
 extends Resource
 class_name Deck
+## a deck, different from DeckDisplay. the core of this is the deck variable, an array of Cards
+##
+## we're using the same class for player, dealer, and the drawpile and well, we were supposed to make inherited classes, but most of the time each class only gets 1 instance so whats the point? so some of the methods here are exclusive to player / dealer / drawpile. just use them properly and youll be fine
 
-var deck: Array[Card]
-var display: DeckDisplay
+var deck: Array[Card] ## array of Cards in deck
+var display: DeckDisplay ## an optional DeckDisplay to link, for dealer and player
 
-# we're using the same class for player, dealer, and the drawpile and well, we were supposed to make inherited classes, but most of the time each class only gets 1 instance so whats the point? so some of the methods here are exclusive to player / dealer / drawpile. just use them properly and youll be fine
-
+## inits with an array of Cards
 func _init(deck1: Array[Card]) -> void:
 	deck = deck1
 
 # general
+
+## get the card at index
 func getCard(index: int) -> Card:
 	return deck[index]
 
+## get how many cards there are
 func getCardCount() -> int:
 	return deck.size()
 
 # drawpile
+
+## shuffles the deck, returns self for chaining
 func shuffle() -> Deck:
 	deck.shuffle()
 	return self
 
+## returns the last card from the deck, removing it at the same time
 func drawRandom() -> Card:
 	return deck.pop_back()
 
+## returns a card of a specific rank, removing it from deck
 func drawRigged(rank: String) -> Card:
 	return deck.pop_at(deck.find_custom(func(card: Card): return card.rank == rank))
 
 # player & dealer
+
+## set a DeckDisplay to update it as the cards in this deck change
 func linkDisplay(display1: DeckDisplay):
 	# auto-update the DeckDisplay
 	display = display1
@@ -36,17 +47,22 @@ func linkDisplay(display1: DeckDisplay):
 	for card in deck:
 		display.addCard(card)
 
+## add a card to the deck, optional whether the card should be face-down
 func addCard(card: Card, back = false) -> Deck:
 	deck.append(card)
 	if display: display.addCard(card, back)
 	return self
 
+## get total value of deck. returns dictionary.
+##
+## dictionary property 'soft' boolean, false if value fixed and 'value' would be int
+##
+## true if deck involves aces, 'value' would be array of all possible values (including >21 ones) sorted small to big
 func getValue() -> Dictionary:
-	# get value, if soft returns an array sorted so the first element is always smaller
 	var sum = 0
 	var aces = 0
 	var soft = false
-	for card in deck:
+	for card: Card in deck:
 		sum += card.getValue()
 		if card.isSoft():
 			soft = true
@@ -70,8 +86,8 @@ func getValue() -> Dictionary:
 			'value': sum
 		}
 
+## get the highest value that's not bust
 func getHighestValidValue() -> int:
-	# get the highest value that's not bust
 	var value = getValue()
 	if value['soft']:
 		var idx = value['value'].size() - 1
@@ -88,8 +104,8 @@ func getHighestValidValue() -> int:
 		return -1
 	return value['value']
 
+## 1 if highest valid value of this deck is larger, -1 if other is larger, 0 if tie
 func compareValue(otherDeck: Deck) -> int:
-	# 1 if this is larger, -1 if other is larger, 0 if tie
 	var value1 = getHighestValidValue()
 	var value2 = otherDeck.getHighestValidValue()
 	if value1 == value2: return 0
@@ -97,6 +113,8 @@ func compareValue(otherDeck: Deck) -> int:
 	return -1
 
 # toString functions
+
+## just a list of all values, i didnt bother removing the comma at the end lmao
 func toValueString() -> String:
 	var total = getValue()
 	if total['soft']:
@@ -107,6 +125,7 @@ func toValueString() -> String:
 	else:
 		return str(total['value'])
 
+## a list of "rank of suit"s, i didnt bother removing the comma at the end lmao
 func toString() -> String:
 	var string = ''
 	for card in deck:
@@ -114,11 +133,14 @@ func toString() -> String:
 	return string
 
 # checks
+
+## checks if natural bj
 func isNaturalBlackjack() -> bool:
 	var total = getValue()
 	# must be one ace (soft) and one 10
 	return deck.size() == 2 && total['soft'] && total['value'][1] == 21
 
+## check if busted
 func isBusted() -> bool:
 	var total = getValue()
 	if total['soft']:
@@ -126,6 +148,7 @@ func isBusted() -> bool:
 		return total['value'][0] > 21
 	return total['value'] > 21
 
+## check if dealer should stop
 func isEndForDealer() -> bool:
 	var total = getValue()
 	if total['soft']:
@@ -137,12 +160,12 @@ func isEndForDealer() -> bool:
 		return false
 	return total['value'] >= 17
 
+## check if hand is splittable. does NOT take game settings into consideration
 func isSplittable() -> bool:
 	if !deck.size() == 2: return false
 	return deck[0].compareRank(deck[1])
 
-# player - split
-
+## player - split. errors if deck size not 2, removes one card, returns new Deck with the other card
 func split() -> Deck:
 	if !deck.size() == 2: push_error('you can only split on 2-card decks')
 	if display:
