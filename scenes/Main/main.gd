@@ -3,7 +3,7 @@ extends Control
 const deckDisplayScene = preload("res://scenes/DeckDisplay/deck_display.tscn")
 const chipsScene = preload("res://scenes/Chips/chips.tscn")
 
-const DECK_INITIAL_POS = Vector2(12, 540)
+const DECK_INITIAL_POS = Vector2(48, 540)
 const CHIP_INITIAL_POS = Vector2(460, 540)
 
 var mainDeck: Deck
