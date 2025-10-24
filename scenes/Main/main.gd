@@ -235,7 +235,8 @@ func _on_player_hit() -> void:
 	if playerIdx == 1: playerHands[playerIdx].addCard(mainDeck.drawRigged('3'))
 	else: playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButton('double down')
-	checkSplit()
+	$PlayerButtons.disableButton('split')
+	$PlayerButtons.disableButton('insurance')
 	if playerHands[playerIdx].isBusted():
 		$PlayerButtons.disableButtons()
 		print('you bust! you lose!')
@@ -285,6 +286,7 @@ func _on_player_split() -> void:
 	# this is Deck
 	playerHands.append(playerHands[playerIdx].split())
 	var newPlayerHand = playerHands[playerHands.size() - 1]
+	var oldPlayerHand = playerHands[playerHands.size() - 2]
 
 	# DeckDisplay
 	playerDeckDisplays.append(deckDisplayScene.instantiate())
@@ -293,8 +295,10 @@ func _on_player_split() -> void:
 	newDeckDisplay.hide()
 	$PlayerDeckDisplays.add_child(newDeckDisplay)
 
-	# link them together
+	# link them together and deal card
 	newPlayerHand.linkDisplay(newDeckDisplay)
+	newPlayerHand.addCard(mainDeck.drawRandom())
+	oldPlayerHand.addCard(mainDeck.drawRandom())
 
 	# Chips
 	playerChipDisplays.append(chipsScene.instantiate())
