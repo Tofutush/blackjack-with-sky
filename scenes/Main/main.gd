@@ -32,17 +32,22 @@ func newGame() -> void:
 	for child in $PlayerChipDisplays.get_children():
 		child.queue_free()
 	$Bet.startBetting(GameManager.money, "bet")
+	$Dialog.showDialog(['Bets in!'])
 
 ## this is the TRUE endGame, when all hands have been played
 func endGame() -> void:
 	print('end game')
+	$Dialog.showDialog(['Time to determine whether you won or not!'])
 	# check insurance on game end bc it carries out regardless of outcome of main game
 	if insuring:
 		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
 		if dealerHand.isNaturalBlackjack():
 			print('insure bet won')
+			$Dialog.showDialog(['You bet $' + str(insuranceBet) + ' for insurance, so you won $' + str(insuranceBet * 3) + '.'])
 			GameManager.changeMoney(insuranceBet * 3)
 			$InsuranceChips.tripleChips()
+		else:
+			$Dialog.showDialog(['You lost your insurance bet of $' + str(insuranceBet) + '.'])
 	$PlayerButtons.disableButtons()
 	if dealerHand.isBusted():
 		print('dealer over, so all your hands that have not busted will win')
@@ -52,6 +57,11 @@ func endGame() -> void:
 				count += 1
 				GameManager.changeMoney(bet * 2)
 		print(str(count) + ' hand(s) have won')
+		if playerHands.size() == 1: $Dialog.showDialog(['I busted, so you win.'])
+		else: $Dialog.showDialog([
+			'I busted, so all your hands that are not busted will win.',
+			"That's " + str(count) + " hand" + Dialog.plural(count) + "."
+		])
 	else:
 		for i in len(playerHands):
 			if !playerHands[i].isBusted():
@@ -60,13 +70,19 @@ func endGame() -> void:
 					0:
 						GameManager.changeMoney(bet)
 						print('hand ' + str(i + 1) + ' push')
+						hideAllHandsButOne(i)
+						$Dialog.showDialog(['This hand pushed.'])
 					1:
 						GameManager.changeMoney(bet * 2)
 						playerChipDisplays[i].doubleChips()
 						print('hand ' + str(i + 1) + ' win')
+						hideAllHandsButOne(i)
+						$Dialog.showDialog(["This hand won."])
 					-1:
 						playerChipDisplays[i].clearChips()
 						print('hand ' + str(i + 1) + ' lose')
+						hideAllHandsButOne(i)
+						$Dialog.showDialog(["This hand lost."])
 					_:
 						push_error('somehow result is ' + str(result))
 	$ContinueButton.show()
@@ -84,6 +100,14 @@ func endHand() -> void:
 		$PlayerButtons.disableButton('split')
 		# you can only buy insurance at the very start
 		$PlayerButtons.disableButton('insurance')
+
+		$Dialog.showDialog(["You are now playing hand " + str(playerIdx + 1)])
+
+## hide all hands but one
+func hideAllHandsButOne(index: int):
+	for i in playerHands.size():
+		if i == index: playerDeckDisplays[i].show()
+		else: playerDeckDisplays[i].hide()
 
 func _on_continue_button_pressed() -> void:
 	newGame()
@@ -138,6 +162,7 @@ func play() -> void:
 	# check natural blackjack
 	if playerHands[0].isNaturalBlackjack():
 		print('natural blackjack! you win!')
+		$Dialog.showDialog('Natural blackjack! You win!')
 		GameManager.changeMoney(floor(bet * 1.5))
 		endGame()
 		return
@@ -185,6 +210,7 @@ func _on_player_hit() -> void:
 	checkSplit()
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
+		$Dialog.showDialog(['You bust! You lose!'])
 		playerChipDisplays[playerIdx].clearChips()
 		endHand()
 
@@ -201,6 +227,7 @@ func _on_player_double_down() -> void:
 	$PlayerButtons.disableButtons()
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
+		$Dialog.showDialog(['You bust! You lose!'])
 		endHand()
 		return
 	endHand()
@@ -249,11 +276,14 @@ func _on_player_split() -> void:
 
 	$PlayerButtons.disableButton('split')
 
+	$Dialog.showDialog(['You are now playing hand 1.'])
+
 ## dealer draws. called every time to flip the back card, later skipped if all hands bust
 func dealerDrawLoop() -> void:
 	$DealerDeckDisplay.turnLastBackCard()
-	if !playerHands.all(func(hand: Deck): hand.isBusted()):
+	if !playerHands.all(func(hand: Deck): return hand.isBusted()):
 		# dealer don't draw if all hands bust
+		$Dialog.showDialog(["It's my turn to draw."])
 		print('dealer drawing')
 		while not dealerHand.isEndForDealer():
 			dealerHand.addCard(mainDeck.drawRandom())

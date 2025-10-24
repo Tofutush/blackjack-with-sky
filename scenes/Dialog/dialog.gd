@@ -23,6 +23,7 @@ func showMessage() -> void:
 		return
 	isDialogging = true
 	rich_text_label.text = lines[currentLine]
+	show()
 	if GameManager.textAnimation:
 		isAnimating = true
 		rich_text_label.visible_characters = 0

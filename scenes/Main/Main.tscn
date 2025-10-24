@@ -118,10 +118,10 @@ metadata/_edit_use_anchors_ = true
 [node name="Dialog" parent="." instance=ExtResource("9_r0gd4")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.36302084
-anchor_top = 0.23148148
-anchor_right = 0.36302084
-anchor_bottom = 0.23148148
+anchor_left = 0.5864583
+anchor_top = 0.2898148
+anchor_right = 0.5864583
+anchor_bottom = 0.2898148
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]
