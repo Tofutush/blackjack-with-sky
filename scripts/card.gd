@@ -28,3 +28,7 @@ func toString() -> String:
 ## bad name. whether rank is equal, t/f
 func compareRank(card: Card) -> bool:
 	return rank == card.rank
+
+## also bad name. whether value equal. t/f
+func compareValue(card: Card) -> bool:
+	return getValue() == card.getValue()

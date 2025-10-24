@@ -166,8 +166,8 @@ func play() -> void:
 	# deal initial cards
 	#playerHands[0].addCard(mainDeck.drawRandom())
 	#playerHands[0].addCard(mainDeck.drawRandom())
-	playerHands[0].addCard(mainDeck.drawRigged('3'))
-	playerHands[0].addCard(mainDeck.drawRigged('3'))
+	playerHands[0].addCard(mainDeck.drawRigged('10'))
+	playerHands[0].addCard(mainDeck.drawRigged('J'))
 	dealerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom(), true)
 	#dealerHand.addCard(mainDeck.drawRigged('A'))
@@ -232,7 +232,7 @@ func checkDoubleDown() -> void:
 ### 6 player options. these signals are middleman signals from $PlayerButtons
 
 func _on_player_hit() -> void:
-	if playerIdx == 1: playerHands[playerIdx].addCard(mainDeck.drawRigged('3'))
+	if playerIdx == 1: playerHands[playerIdx].addCard(mainDeck.drawRigged('K'))
 	else: playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButton('double down')
 	$PlayerButtons.disableButton('split')

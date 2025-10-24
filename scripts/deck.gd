@@ -162,7 +162,8 @@ func isEndForDealer() -> bool:
 ## check if hand is splittable. does NOT take game settings into consideration
 func isSplittable() -> bool:
 	if !deck.size() == 2: return false
-	return deck[0].compareRank(deck[1])
+	if GameManager.strictSplitting: return deck[0].compareRank(deck[1])
+	else: return deck[0].compareValue(deck[1])
 
 ## player - split. errors if deck size not 2, removes one card, returns new Deck with the other card
 func split() -> Deck:
