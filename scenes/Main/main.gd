@@ -223,6 +223,7 @@ func _on_player_hit() -> void:
 	$PlayerButtons.disableButton('double down')
 	checkSplit()
 	if playerHands[playerIdx].isBusted():
+		$PlayerButtons.disableButtons()
 		print('you bust! you lose!')
 		$Dialog.showDialog(['You bust! You lose!'])
 		await $Dialog.dialog_finished
@@ -241,6 +242,7 @@ func _on_player_double_down() -> void:
 	playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButtons()
 	if playerHands[playerIdx].isBusted():
+		$PlayerButtons.disableButtons()
 		print('you bust! you lose!')
 		$Dialog.showDialog(['You bust! You lose!'])
 		await $Dialog.dialog_finished
