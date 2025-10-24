@@ -11,6 +11,7 @@ var card: Card
 
 func _ready() -> void:
 	texture = texture.duplicate()
+	$AnimationPlayer.play("fadein")
 
 ## show the front of this card
 func showFront() -> void:
