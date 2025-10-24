@@ -111,7 +111,7 @@ func endHand() -> void:
 		# you can only buy insurance at the very start
 		$PlayerButtons.disableButton('insurance')
 
-		$Dialog.showDialog(["You are now playing hand " + str(playerIdx + 1)])
+		$Dialog.showDialog(["You are now playing hand " + str(playerIdx + 1) + '.'])
 		await $Dialog.dialog_finished
 
 ## hide all hands but one
@@ -290,7 +290,7 @@ func _on_player_split() -> void:
 
 	$PlayerButtons.disableButton('split')
 
-	$Dialog.showDialog(['You are now playing hand 1.'])
+	$Dialog.showDialog(['You are now playing hand ' + str(playerIdx + 1) + '.'])
 	await $Dialog.dialog_finished
 
 ## dealer draws. called every time to flip the back card, later skipped if all hands bust
