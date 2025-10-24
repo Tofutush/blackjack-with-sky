@@ -38,7 +38,8 @@ func newGame() -> void:
 ## this is the TRUE endGame, when all hands have been played
 func endGame() -> void:
 	print('end game')
-	if !playerHands.all(func(hand: Deck): hand.isBusted()):
+	hideAllHandsButOne(-1)
+	if !playerHands.all(func(hand: Deck): return hand.isBusted()):
 		# skip if all busted
 		$Dialog.showDialog(['Time to determine whether you won or not!'])
 		await $Dialog.dialog_finished
@@ -95,6 +96,7 @@ func endGame() -> void:
 							await $Dialog.dialog_finished
 						_:
 							push_error('somehow result is ' + str(result))
+	hideAllHandsButOne(-1)
 	$ContinueButton.show()
 
 ## this is when you finish playing a hand, not the game
