@@ -28,7 +28,6 @@ offset_bottom = 400.0
 
 [node name="Sky" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 953.0
-offset_right = 1707.0
+offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_rm1kt")
