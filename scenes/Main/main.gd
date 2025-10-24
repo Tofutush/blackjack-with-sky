@@ -328,6 +328,7 @@ func dealerDrawLoop() -> void:
 		print('dealer drawing')
 		while not dealerHand.isEndForDealer():
 			dealerHand.addCard(mainDeck.drawRandom())
+			await get_tree().create_timer(0.2).timeout
 		if dealerHand.isBusted(): $Dialog.showDialog(['Aww, I busted.'])
 		else: $Dialog.showDialog(["I'm standing now."])
 		await $Dialog.dialog_finished
