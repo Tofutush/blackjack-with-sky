@@ -11,8 +11,11 @@ func setColor(color1: Color) -> void:
 
 ## make screen show in 1s
 func fadeIn() -> void:
+	show()
 	$AnimationPlayer.play("fade in")
 
 ## make screen hide in 1s
 func fadeOut() -> void:
+	show()
 	$AnimationPlayer.play("fade out")
+	hide()
