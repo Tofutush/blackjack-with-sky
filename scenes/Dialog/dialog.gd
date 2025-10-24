@@ -5,12 +5,12 @@ class_name Dialog
 @onready var rich_text_label: RichTextLabel = $PanelContainer/RichTextLabel ## dialog text
 @onready var timer: Timer = $Timer ## timer for typing
 
-var lines: Array[String] = []
+var lines: Array = []
 var currentLine := 0
 var isDialogging := false
 var isAnimating := false
 
-func showDialog(lines1: Array[String]):
+func showDialog(lines1: Array):
 	lines = lines1
 	currentLine = 0
 	showMessage()
