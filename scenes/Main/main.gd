@@ -109,7 +109,8 @@ func endHand() -> void:
 		playerIdx += 1
 		playerDeckDisplays[playerIdx].show()
 		$PlayerButtons.enableButtons()
-		$PlayerButtons.disableButton('split')
+		checkSplit()
+		checkDoubleDown()
 		# you can only buy insurance at the very start
 		$PlayerButtons.disableButton('insurance')
 
@@ -184,8 +185,9 @@ func play() -> void:
 	# enable them first, then disable split / insurance as fit
 	$PlayerButtons.enableButtons()
 
-	# check split
+	# check split & double down
 	checkSplit()
+	checkDoubleDown()
 
 	# check insurance
 	if dealerHand.getCard(0).rank == 'A':
@@ -201,7 +203,7 @@ func play() -> void:
 
 	return
 
-## this needs to be used twice so. negotiate enabling the split button
+## negotiate enabling the split button
 func checkSplit() -> void:
 	if GameManager.strictSplitting && playerHands.size() == 4:
 		$PlayerButtons.disableButton('split')
@@ -214,6 +216,18 @@ func checkSplit() -> void:
 			$PlayerButtons.setButtonTooltip('split', 'Not enough money.')
 	else:
 		$PlayerButtons.disableButton('split')
+
+## negotiate enabling the double down button
+func checkDoubleDown() -> void:
+	if playerHands[playerIdx].getCardCount() != 2:
+		$PlayerButtons.disableButton('double down')
+		$PlayerButtons.setButtonTooltip('double down', "You can only double down on 2 cards.")
+		return
+	if GameManager.money < bet * 2:
+		$PlayerButtons.disableButton('double down')
+		$PlayerButtons.setButtonTooltip('double down', "Not enough money.")
+		return
+	$PlayerButtons.enableButton('double down')
 
 ### 6 player options. these signals are middleman signals from $PlayerButtons
 
