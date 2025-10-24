@@ -25,6 +25,7 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("3_exyxu")
+metadata/_edit_lock_ = true
 
 [node name="Bet" parent="." instance=ExtResource("3_brr1f")]
 layout_mode = 1
@@ -101,6 +102,7 @@ offset_top = -0.52001953
 offset_right = -0.24005127
 offset_bottom = -0.52001953
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="PlayerDeckDisplays" type="Node" parent="."]
 
@@ -113,6 +115,7 @@ anchor_bottom = 0.683
 offset_top = 0.35998535
 offset_bottom = 0.35998535
 grow_vertical = 0
+metadata/_edit_lock_ = true
 
 [node name="InsuranceChips" parent="." instance=ExtResource("7_q8kdv")]
 layout_mode = 1
