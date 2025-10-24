@@ -164,14 +164,10 @@ func play() -> void:
 	dealerHand.linkDisplay($DealerDeckDisplay)
 
 	# deal initial cards
-	#playerHands[0].addCard(mainDeck.drawRandom())
-	#playerHands[0].addCard(mainDeck.drawRandom())
-	playerHands[0].addCard(mainDeck.drawRigged('A'))
-	playerHands[0].addCard(mainDeck.drawRigged('A'))
+	playerHands[0].addCard(mainDeck.drawRandom())
+	playerHands[0].addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom(), true)
-	#dealerHand.addCard(mainDeck.drawRigged('A'))
-	#dealerHand.addCard(mainDeck.drawRigged('10'), true)
 
 	# check natural blackjack
 	if playerHands[0].isNaturalBlackjack():
@@ -232,8 +228,7 @@ func checkDoubleDown() -> void:
 ### 6 player options. these signals are middleman signals from $PlayerButtons
 
 func _on_player_hit() -> void:
-	if playerIdx == 1: playerHands[playerIdx].addCard(mainDeck.drawRigged('K'))
-	else: playerHands[playerIdx].addCard(mainDeck.drawRandom())
+	playerHands[playerIdx].addCard(mainDeck.drawRandom())
 	$PlayerButtons.disableButton('double down')
 	$PlayerButtons.disableButton('split')
 	$PlayerButtons.disableButton('insurance')
