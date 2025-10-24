@@ -7,11 +7,17 @@ class_name Dialog
 
 signal dialog_finished ## emit after a dialog is done
 
+var sprite: SkyTalk ## the sprite of sky, to change his expressions
+
 var lines: Array = []
 var currentLine := 0
 var isDialogging := false
 var isAnimating := false
 
+func linkSprite(sprite1: SkyTalk) -> void:
+	sprite = sprite1
+
+## show dialog with an array of lines
 func showDialog(lines1: Array):
 	lines = lines1
 	currentLine = 0
@@ -25,7 +31,14 @@ func showMessage() -> void:
 		dialog_finished.emit()
 		return
 	isDialogging = true
-	rich_text_label.text = lines[currentLine]
+	if sprite:
+		var parsed = lines[currentLine].rsplit('@')
+		if parsed.size() == 2:
+			rich_text_label.text = parsed[1]
+			sprite.changeSprite(parsed[0])
+		else: rich_text_label.text = parsed[0]
+	else:
+		rich_text_label.text = lines[currentLine]
 	show()
 	if GameManager.textAnimation:
 		isAnimating = true
