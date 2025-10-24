@@ -299,12 +299,15 @@ func _on_player_split() -> void:
 
 ## dealer draws. called every time to flip the back card, later skipped if all hands bust
 func dealerDrawLoop() -> void:
-	$DealerDeckDisplay.turnLastBackCard()
 	if !playerHands.all(func(hand: Deck): return hand.isBusted()):
 		# dealer don't draw if all hands bust
+		$DealerDeckDisplay.turnLastBackCard()
 		$Dialog.showDialog(["It's my turn to draw."])
 		await $Dialog.dialog_finished
 		print('dealer drawing')
 		while not dealerHand.isEndForDealer():
 			dealerHand.addCard(mainDeck.drawRandom())
+		if dealerHand.isBusted(): $Dialog.showDialog(['Aww, I busted.'])
+		else: $Dialog.showDialog(["I'm standing now."])
+		await $Dialog.dialog_finished
 	endGame()
