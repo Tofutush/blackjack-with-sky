@@ -166,8 +166,8 @@ func play() -> void:
 	# deal initial cards
 	#playerHands[0].addCard(mainDeck.drawRandom())
 	#playerHands[0].addCard(mainDeck.drawRandom())
-	playerHands[0].addCard(mainDeck.drawRigged('10'))
-	playerHands[0].addCard(mainDeck.drawRigged('J'))
+	playerHands[0].addCard(mainDeck.drawRigged('A'))
+	playerHands[0].addCard(mainDeck.drawRigged('A'))
 	dealerHand.addCard(mainDeck.drawRandom())
 	dealerHand.addCard(mainDeck.drawRandom(), true)
 	#dealerHand.addCard(mainDeck.drawRigged('A'))
@@ -308,7 +308,10 @@ func _on_player_split() -> void:
 	newChipDisplay.setChips(bet)
 
 	if GameManager.strictSplitting && newPlayerHand.getCard(0).rank == 'A':
-		splittingAces = true
+		$Dialog.showDialog(["Because you're splitting aces and strict splitting rules are on, you will only get one more card per hand."])
+		await $Dialog.dialog_finished
+		dealerDrawLoop()
+		return
 
 	$PlayerButtons.disableButton('split')
 

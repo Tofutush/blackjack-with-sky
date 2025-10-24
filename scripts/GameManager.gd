@@ -14,7 +14,7 @@ var textAnimation := true ## whether to animate letters appearing one by one
 ## - unlimited hands
 ## - play aces like normal
 ## you can always double down after splitting
-var strictSplitting = false
+var strictSplitting = true
 
 ## emitted whenever money is changed, mostly for the MoneyMeter (dont let win/lose check do it because it emits in the middle of games)
 signal money_changed(amount: int)
