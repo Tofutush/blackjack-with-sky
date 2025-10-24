@@ -5,6 +5,8 @@ class_name Dialog
 @onready var rich_text_label: RichTextLabel = $PanelContainer/RichTextLabel ## dialog text
 @onready var timer: Timer = $Timer ## timer for typing
 
+signal dialog_finished ## emit after a dialog is done
+
 var lines: Array = []
 var currentLine := 0
 var isDialogging := false
@@ -20,6 +22,7 @@ func showMessage() -> void:
 	if currentLine >= lines.size():
 		isDialogging = false
 		hide()
+		dialog_finished.emit()
 		return
 	isDialogging = true
 	rich_text_label.text = lines[currentLine]

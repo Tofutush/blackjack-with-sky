@@ -33,58 +33,68 @@ func newGame() -> void:
 		child.queue_free()
 	$Bet.startBetting(GameManager.money, "bet")
 	$Dialog.showDialog(['Bets in!'])
+	await $Dialog.dialog_finished
 
 ## this is the TRUE endGame, when all hands have been played
 func endGame() -> void:
 	print('end game')
-	$Dialog.showDialog(['Time to determine whether you won or not!'])
-	# check insurance on game end bc it carries out regardless of outcome of main game
-	if insuring:
-		# the dealer would not draw any more cards had they natural bj, so it's safe to call this
-		if dealerHand.isNaturalBlackjack():
-			print('insure bet won')
-			$Dialog.showDialog(['You bet $' + str(insuranceBet) + ' for insurance, so you won $' + str(insuranceBet * 3) + '.'])
-			GameManager.changeMoney(insuranceBet * 3)
-			$InsuranceChips.tripleChips()
+	if !playerHands.all(func(hand: Deck): hand.isBusted()):
+		# skip if all busted
+		$Dialog.showDialog(['Time to determine whether you won or not!'])
+		await $Dialog.dialog_finished
+		# check insurance on game end bc it carries out regardless of outcome of main game
+		if insuring:
+			# the dealer would not draw any more cards had they natural bj, so it's safe to call this
+			if dealerHand.isNaturalBlackjack():
+				print('insure bet won')
+				$Dialog.showDialog(['You bet $' + str(insuranceBet) + ' for insurance, so you won $' + str(insuranceBet * 3) + '.'])
+				await $Dialog.dialog_finished
+				GameManager.changeMoney(insuranceBet * 3)
+				$InsuranceChips.tripleChips()
+			else:
+				$Dialog.showDialog(['You lost your insurance bet of $' + str(insuranceBet) + '.'])
+				await $Dialog.dialog_finished
+		$PlayerButtons.disableButtons()
+		if dealerHand.isBusted():
+			print('dealer over, so all your hands that have not busted will win')
+			var count = 0
+			for hand in playerHands:
+				if !hand.isBusted():
+					count += 1
+					GameManager.changeMoney(bet * 2)
+			print(str(count) + ' hand(s) have won')
+			if playerHands.size() == 1: $Dialog.showDialog(['I busted, so you win.'])
+			else: $Dialog.showDialog([
+				'I busted, so all your hands that are not busted will win.',
+				"That's " + str(count) + " hand" + Dialog.plural(count) + "."
+			])
+			await $Dialog.dialog_finished
 		else:
-			$Dialog.showDialog(['You lost your insurance bet of $' + str(insuranceBet) + '.'])
-	$PlayerButtons.disableButtons()
-	if dealerHand.isBusted():
-		print('dealer over, so all your hands that have not busted will win')
-		var count = 0
-		for hand in playerHands:
-			if !hand.isBusted():
-				count += 1
-				GameManager.changeMoney(bet * 2)
-		print(str(count) + ' hand(s) have won')
-		if playerHands.size() == 1: $Dialog.showDialog(['I busted, so you win.'])
-		else: $Dialog.showDialog([
-			'I busted, so all your hands that are not busted will win.',
-			"That's " + str(count) + " hand" + Dialog.plural(count) + "."
-		])
-	else:
-		for i in len(playerHands):
-			if !playerHands[i].isBusted():
-				var result = playerHands[i].compareValue(dealerHand)
-				match result:
-					0:
-						GameManager.changeMoney(bet)
-						print('hand ' + str(i + 1) + ' push')
-						hideAllHandsButOne(i)
-						$Dialog.showDialog(['This hand pushed.'])
-					1:
-						GameManager.changeMoney(bet * 2)
-						playerChipDisplays[i].doubleChips()
-						print('hand ' + str(i + 1) + ' win')
-						hideAllHandsButOne(i)
-						$Dialog.showDialog(["This hand won."])
-					-1:
-						playerChipDisplays[i].clearChips()
-						print('hand ' + str(i + 1) + ' lose')
-						hideAllHandsButOne(i)
-						$Dialog.showDialog(["This hand lost."])
-					_:
-						push_error('somehow result is ' + str(result))
+			for i in len(playerHands):
+				if !playerHands[i].isBusted():
+					var result = playerHands[i].compareValue(dealerHand)
+					match result:
+						0:
+							GameManager.changeMoney(bet)
+							print('hand ' + str(i + 1) + ' push')
+							hideAllHandsButOne(i)
+							$Dialog.showDialog(['This hand pushed.'])
+							await $Dialog.dialog_finished
+						1:
+							GameManager.changeMoney(bet * 2)
+							playerChipDisplays[i].doubleChips()
+							print('hand ' + str(i + 1) + ' win')
+							hideAllHandsButOne(i)
+							$Dialog.showDialog(["This hand won."])
+							await $Dialog.dialog_finished
+						-1:
+							playerChipDisplays[i].clearChips()
+							print('hand ' + str(i + 1) + ' lose')
+							hideAllHandsButOne(i)
+							$Dialog.showDialog(["This hand lost."])
+							await $Dialog.dialog_finished
+						_:
+							push_error('somehow result is ' + str(result))
 	$ContinueButton.show()
 
 ## this is when you finish playing a hand, not the game
@@ -102,6 +112,7 @@ func endHand() -> void:
 		$PlayerButtons.disableButton('insurance')
 
 		$Dialog.showDialog(["You are now playing hand " + str(playerIdx + 1)])
+		await $Dialog.dialog_finished
 
 ## hide all hands but one
 func hideAllHandsButOne(index: int):
@@ -163,6 +174,7 @@ func play() -> void:
 	if playerHands[0].isNaturalBlackjack():
 		print('natural blackjack! you win!')
 		$Dialog.showDialog('Natural blackjack! You win!')
+		await $Dialog.dialog_finished
 		GameManager.changeMoney(floor(bet * 1.5))
 		endGame()
 		return
@@ -211,6 +223,7 @@ func _on_player_hit() -> void:
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
 		$Dialog.showDialog(['You bust! You lose!'])
+		await $Dialog.dialog_finished
 		playerChipDisplays[playerIdx].clearChips()
 		endHand()
 
@@ -228,6 +241,7 @@ func _on_player_double_down() -> void:
 	if playerHands[playerIdx].isBusted():
 		print('you bust! you lose!')
 		$Dialog.showDialog(['You bust! You lose!'])
+		await $Dialog.dialog_finished
 		endHand()
 		return
 	endHand()
@@ -277,6 +291,7 @@ func _on_player_split() -> void:
 	$PlayerButtons.disableButton('split')
 
 	$Dialog.showDialog(['You are now playing hand 1.'])
+	await $Dialog.dialog_finished
 
 ## dealer draws. called every time to flip the back card, later skipped if all hands bust
 func dealerDrawLoop() -> void:
@@ -284,6 +299,7 @@ func dealerDrawLoop() -> void:
 	if !playerHands.all(func(hand: Deck): return hand.isBusted()):
 		# dealer don't draw if all hands bust
 		$Dialog.showDialog(["It's my turn to draw."])
+		await $Dialog.dialog_finished
 		print('dealer drawing')
 		while not dealerHand.isEndForDealer():
 			dealerHand.addCard(mainDeck.drawRandom())
