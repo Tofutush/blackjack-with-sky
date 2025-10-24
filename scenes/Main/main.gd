@@ -126,7 +126,7 @@ func hideAllHandsButOne(index: int):
 func _on_continue_button_pressed() -> void:
 	newGame()
 
-func _on_bet_bet_submitted(amount: int, purpose: String) -> void:
+func _on_bet_submitted(amount: int, purpose: String) -> void:
 	match purpose:
 		"bet":
 			bet = amount
