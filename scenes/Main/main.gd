@@ -97,6 +97,7 @@ func endGame() -> void:
 						_:
 							push_error('somehow result is ' + str(result))
 	hideAllHandsButOne(-1)
+	checkWinLose()
 	$ContinueButton.show()
 
 ## this is when you finish playing a hand, not the game
@@ -335,6 +336,9 @@ func checkWinLose() -> void:
 		print('less than 20, game lose')
 		$Dialog.showDialog(["Looks like you've lost too much money!"])
 		await $Dialog.dialog_finished
+		$BlackScreen.fadeIn()
+		await get_tree().create_timer(1).timeout
+		get_tree().change_scene_to_file("res://scenes/GameLose/game_lose.tscn")
 	if GameManager.money >= 1000:
 		print('ge 1000, game win')
 		$Dialog.showDialog([
@@ -342,3 +346,5 @@ func checkWinLose() -> void:
 			"You've won 1000 bucks!"
 		])
 		await $Dialog.dialog_finished
+		$BlackScreen.fadeIn()
+		await get_tree().create_timer(1).timeout
