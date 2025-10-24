@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq7djpwa0b22h"]
+
+[ext_resource type="PackedScene" uid="uid://dxcq7luth150q" path="res://scenes/SkyTalk/sky_talk.tscn" id="1_jgf8h"]
+[ext_resource type="Script" uid="uid://dm71xpp4rjpqg" path="res://scenes/GameWin/game_win.gd" id="2_mmjae"]
+
+[node name="GameWin" instance=ExtResource("1_jgf8h")]
+script = ExtResource("2_mmjae")

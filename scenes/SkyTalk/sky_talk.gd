@@ -8,6 +8,7 @@ const sprites: Dictionary = {
 
 func _ready() -> void:
 	$BlackScreen.fadeOut()
+	await $BlackScreen.fade_finished
 
 ## changes sky's sprite
 func changeSprite(textureName: String) -> void:

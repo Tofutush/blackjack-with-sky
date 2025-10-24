@@ -97,6 +97,7 @@ func endGame() -> void:
 						_:
 							push_error('somehow result is ' + str(result))
 	hideAllHandsButOne(-1)
+	GameManager.changeMoney(1000)
 	checkWinLose()
 	$ContinueButton.show()
 
@@ -348,3 +349,4 @@ func checkWinLose() -> void:
 		await $Dialog.dialog_finished
 		$BlackScreen.fadeIn()
 		await get_tree().create_timer(1).timeout
+		get_tree().change_scene_to_file("res://scenes/GameWin/game_win.tscn")
