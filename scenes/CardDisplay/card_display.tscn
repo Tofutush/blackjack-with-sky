@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnimx4rlh7ejx"]
+[gd_scene load_steps=9 format=3 uid="uid://dnimx4rlh7ejx"]
 
 [ext_resource type="Texture2D" uid="uid://bsppoymneohor" path="res://assets/cards.png" id="1_8ewbe"]
 [ext_resource type="Script" uid="uid://br1m56mbr2t82" path="res://scenes/CardDisplay/card_display.gd" id="2_mqors"]
@@ -8,7 +8,7 @@ atlas = ExtResource("1_8ewbe")
 region = Rect2(0, 0, 209, 294)
 
 [sub_resource type="Animation" id="Animation_sda2w"]
-length = 0.001
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -16,10 +16,21 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.1, 0, 0.1, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_mqors"]
@@ -38,18 +49,49 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_5qe4c"]
+resource_name = "squash"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.1, 0, 0.1, 0, 1e-05, -0.033333335, 0.166665, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_57mdg"]
+resource_name = "expand"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1e-05, -0.1, 0, 0.1, 0, 1, -0.033333335, -0.166665, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sda2w"]
 _data = {
 &"RESET": SubResource("Animation_sda2w"),
-&"fadein": SubResource("Animation_mqors")
+&"expand": SubResource("Animation_57mdg"),
+&"fadein": SubResource("Animation_mqors"),
+&"squash": SubResource("Animation_5qe4c")
 }
 
 [node name="CardDisplay" type="TextureRect"]
 modulate = Color(1, 1, 1, 0)
 texture_filter = 1
-offset_top = -48.0
 offset_right = 209.0
-offset_bottom = 246.0
+offset_bottom = 294.0
 pivot_offset = Vector2(104.5, 147)
 texture = SubResource("AtlasTexture_k3004")
 script = ExtResource("2_mqors")

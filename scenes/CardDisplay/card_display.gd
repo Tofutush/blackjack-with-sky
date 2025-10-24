@@ -21,6 +21,14 @@ func showFront() -> void:
 func showBack() -> void:
 	if texture.region != BACK_REGION: texture.region = BACK_REGION
 
+## plays animation as card is turned
+func turnBack() -> void:
+	$AnimationPlayer.play("squash")
+	await $AnimationPlayer.animation_finished
+	showFront()
+	$AnimationPlayer.play("expand")
+	await $AnimationPlayer.animation_finished
+
 ## get the top-left corner of the region we need to crop out
 func getRegion() -> Rect2:
 	var x: int
