@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctjvnj3palpng"]
+[gd_scene load_steps=11 format=3 uid="uid://ctjvnj3palpng"]
 
 [ext_resource type="Script" uid="uid://b0gctenpjx66d" path="res://scenes/Main/main.gd" id="1_bvmdu"]
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="2_owiiy"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://gk6yldhrov2y" path="res://scenes/DeckDisplay/deck_display.tscn" id="6_q8kdv"]
 [ext_resource type="PackedScene" uid="uid://b8g3e880xcpaw" path="res://scenes/Chips/chips.tscn" id="7_q8kdv"]
 [ext_resource type="PackedScene" uid="uid://dvsn2prfxngft" path="res://scenes/Dialog/Dialog.tscn" id="9_r0gd4"]
+[ext_resource type="PackedScene" uid="uid://djhmr61u644tc" path="res://scenes/BlackScreen/black_screen.tscn" id="10_krkin"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -135,6 +136,9 @@ anchor_left = 0.5864583
 anchor_top = 0.2898148
 anchor_right = 0.5864583
 anchor_bottom = 0.2898148
+
+[node name="BlackScreen" parent="." instance=ExtResource("10_krkin")]
+layout_mode = 0
 
 [connection signal="bet_submitted" from="Bet" to="." method="_on_bet_submitted"]
 [connection signal="double_down" from="PlayerButtons" to="." method="_on_player_double_down"]

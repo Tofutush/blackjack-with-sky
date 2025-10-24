@@ -118,7 +118,7 @@ func endHand() -> void:
 		await $Dialog.dialog_finished
 
 ## hide all hands but one
-func hideAllHandsButOne(index: int):
+func hideAllHandsButOne(index: int) -> void:
 	for i in playerHands.size():
 		if i == index: playerDeckDisplays[i].show()
 		else: playerDeckDisplays[i].hide()
@@ -328,3 +328,17 @@ func dealerDrawLoop() -> void:
 		else: $Dialog.showDialog(["I'm standing now."])
 		await $Dialog.dialog_finished
 	endGame()
+
+## check if the player lost (<20) or won (>1000)
+func checkWinLose() -> void:
+	if GameManager.money < 20:
+		print('less than 20, game lose')
+		$Dialog.showDialog(["Looks like you've lost too much money!"])
+		await $Dialog.dialog_finished
+	if GameManager.money >= 1000:
+		print('ge 1000, game win')
+		$Dialog.showDialog([
+			"I can't believe you actually did it!",
+			"You've won 1000 bucks!"
+		])
+		await $Dialog.dialog_finished
