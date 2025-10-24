@@ -22,7 +22,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_s333m")
 [node name="Bet" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 0
-theme = ExtResource("1_vsd3a")
 theme_override_constants/separation = 24
 script = ExtResource("2_s333m")
 

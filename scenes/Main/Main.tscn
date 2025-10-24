@@ -29,12 +29,15 @@ texture = ExtResource("3_exyxu")
 [node name="Bet" parent="." instance=ExtResource("3_brr1f")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.025
-anchor_top = 0.35200003
-anchor_right = 0.025
-anchor_bottom = 0.35200003
-offset_top = -0.16003418
-offset_bottom = 183.83997
+anchor_left = 0.032291666
+anchor_top = 0.36959264
+anchor_right = 0.032291666
+anchor_bottom = 0.36959264
+offset_left = 10.0
+offset_top = 0.8399658
+offset_right = 504.0
+offset_bottom = 184.83997
+metadata/_edit_lock_ = true
 
 [node name="MoneyMeter" parent="." instance=ExtResource("6_d463r")]
 layout_mode = 0
@@ -69,6 +72,7 @@ anchor_bottom = 0.044
 offset_top = 0.479996
 offset_bottom = 0.479996
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="ContinueButton" type="Button" parent="."]
 layout_mode = 1
@@ -77,8 +81,9 @@ anchor_left = 0.025
 anchor_top = 0.55600005
 anchor_right = 0.025
 anchor_bottom = 0.55600005
+offset_left = 12.0
 offset_top = -0.4800415
-offset_right = 149.0
+offset_right = 161.0
 offset_bottom = 52.51996
 text = "Continue"
 metadata/_edit_use_anchors_ = true
