@@ -2,7 +2,7 @@ extends Control
 class_name Dialog
 ## dialog class for sky talking
 
-@onready var rich_text_label: RichTextLabel = $PanelContainer/RichTextLabel ## dialog text
+@onready var rich_text_label: RichTextLabel = $RichTextLabel ## dialog text
 @onready var timer: Timer = $Timer ## timer for typing
 
 signal dialog_finished ## emit after a dialog is done

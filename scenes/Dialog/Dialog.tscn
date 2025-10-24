@@ -1,8 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvsn2prfxngft"]
+[gd_scene load_steps=5 format=3 uid="uid://dvsn2prfxngft"]
 
 [ext_resource type="Script" uid="uid://cqkl406yvf13u" path="res://scenes/Dialog/dialog.gd" id="1_bx2yw"]
 [ext_resource type="Texture2D" uid="uid://b82n8dd4055hr" path="res://assets/tail back.png" id="1_ptdee"]
 [ext_resource type="Texture2D" uid="uid://d3ci1impmd3av" path="res://assets/tail front.png" id="2_u13j6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bx2yw"]
+bg_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0.13725491, 0.42352942, 0.88235295, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 12.0
+expand_margin_top = 12.0
+expand_margin_right = 12.0
+expand_margin_bottom = 12.0
 
 [node name="Dialog" type="Control"]
 layout_mode = 3
@@ -18,18 +34,13 @@ offset_right = 97.0
 offset_bottom = 103.0
 texture = ExtResource("1_ptdee")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
 custom_minimum_size = Vector2(0, 100)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
+layout_mode = 0
 offset_left = -455.0
-offset_bottom = 227.0
-grow_horizontal = 0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer"]
-layout_mode = 2
+offset_bottom = 46.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_bx2yw")
 bbcode_enabled = true
 text = "Hello I am Sky I am your dealer I am your God bow down to me"
 fit_content = true
