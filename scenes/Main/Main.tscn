@@ -22,8 +22,8 @@ script = ExtResource("1_bvmdu")
 
 [node name="BG" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = ExtResource("3_exyxu")
 
 [node name="Bet" parent="." instance=ExtResource("3_brr1f")]
