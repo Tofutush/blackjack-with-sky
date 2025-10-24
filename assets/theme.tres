@@ -1717,4 +1717,4 @@ Label/fonts/font = SubResource("FontFile_wl1kw")
 Label/styles/normal = SubResource("StyleBoxEmpty_lu33j")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_y61vb")
 RichTextLabel/colors/default_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
-RichTextLabel/font_sizes/normal_font_size = 24
+RichTextLabel/font_sizes/normal_font_size = 28

@@ -10,12 +10,9 @@ var currentLine := 0
 var isDialogging := false
 var isAnimating := false
 
-func _ready() -> void:
-	lines = [
-		'Hello I am Sky I am your dealer I am your God bow down to me',
-		'blah blah sdjfsjk sd sfkjsdfsjfs fs sd f',
-		'[b]fuck you[/b] you suck'
-	]
+func showDialog(lines1: Array[String]):
+	lines = lines1
+	currentLine = 0
 	showMessage()
 
 ## shows a message in the dialog. can bbcode
