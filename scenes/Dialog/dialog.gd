@@ -51,3 +51,8 @@ func _input(event: InputEvent) -> void:
 		else:
 			currentLine += 1
 			showMessage()
+
+## return empty string if singular, 's' if plural
+static func plural(num: int):
+	if num == 1: return ''
+	return 's'
