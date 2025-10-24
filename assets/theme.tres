@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=4 uid="uid://sfy8iivbp4g"]
+[gd_resource type="Theme" load_steps=24 format=4 uid="uid://sfy8iivbp4g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wycmq"]
 bg_color = Color(0.33333334, 0.33333334, 0.33333334, 0.73333335)
@@ -1758,6 +1758,16 @@ expand_margin_top = 12.0
 expand_margin_right = 12.0
 expand_margin_bottom = 12.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wms38"]
+bg_color = Color(0.33333334, 0.33333334, 0.33333334, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcf2e"]
+bg_color = Color(0.71744394, 0.5953086, 0.18670344, 1)
+
 [resource]
 default_font_size = 24
 Button/colors/font_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
@@ -1786,5 +1796,7 @@ Label/font_sizes/font_size = 48
 Label/fonts/font = SubResource("FontFile_wl1kw")
 Label/styles/normal = SubResource("StyleBoxEmpty_lu33j")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_y61vb")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_wms38")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_bcf2e")
 RichTextLabel/colors/default_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
 RichTextLabel/font_sizes/normal_font_size = 28
