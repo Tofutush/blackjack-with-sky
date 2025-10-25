@@ -3,15 +3,18 @@ class_name intro
 ## intro!
 
 func _ready() -> void:
-	$BlackScreen.show()
-	await get_tree().create_timer(2).timeout
+	$Dialog.linkSprite(self)
+	$BlackScreen.queue_free()
 	$WhiteScreen.show()
-	super()
-	await get_tree().create_timer(2).timeout
+	$IntroBlackScreen.show()
+	await get_tree().create_timer(1).timeout
+	$IntroBlackScreen/AnimationPlayer.play("lift")
+	await $IntroBlackScreen/AnimationPlayer.animation_finished
+	await get_tree().create_timer(1).timeout
 	$WhiteScreen.fadeOut()
 	await $WhiteScreen.fade_finished
 	$Dialog.showDialog([
-			"normal@Good, you're awake.",
+			"normal@Take a breath. It must've been stuffy in there.",
 			"I am [b]Sky Elmwood Dazzle[/b] from the [b]Ministry of State Security[/b].",
 			"You have been found guilty of treason and sentenced to death.",
 			"...",
