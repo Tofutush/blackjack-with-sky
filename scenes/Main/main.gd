@@ -18,6 +18,7 @@ var bet: int
 var insuranceBet: int
 var insuring: bool
 var splittingAces: bool # only true if strict splitting is on
+var surrender: bool
 
 func _ready() -> void:
 	newGame()
@@ -40,64 +41,68 @@ func newGame() -> void:
 func endGame() -> void:
 	print('end game')
 	hideAllHandsButOne(-1)
-	if !playerHands.all(func(hand: Deck): return hand.isBusted()):
-		# skip if all busted
-		$Dialog.showDialog(['Time to determine whether you won or not!'])
+	if surrender:
+		$Dialog.showDialog(["Heh, quitter."])
 		await $Dialog.dialog_finished
-		# check insurance on game end bc it carries out regardless of outcome of main game
-		if insuring:
-			# the dealer would not draw any more cards had they natural bj, so it's safe to call this
-			if dealerHand.isNaturalBlackjack():
-				print('insure bet won')
-				$Dialog.showDialog(['You bet $' + str(insuranceBet) + ' for insurance, so you won $' + str(insuranceBet * 3) + '.'])
-				await $Dialog.dialog_finished
-				GameManager.changeMoney(insuranceBet * 3)
-				$InsuranceChips.tripleChips()
-			else:
-				$Dialog.showDialog(['You lost your insurance bet of $' + str(insuranceBet) + '.'])
-				await $Dialog.dialog_finished
-		$PlayerButtons.disableButtons()
-		if dealerHand.isBusted():
-			print('dealer over, so all your hands that have not busted will win')
-			var count = 0
-			for hand in playerHands:
-				if !hand.isBusted():
-					count += 1
-					GameManager.changeMoney(bet * 2)
-			print(str(count) + ' hand(s) have won')
-			if playerHands.size() == 1: $Dialog.showDialog(['I busted, so you win.'])
-			else: $Dialog.showDialog([
-				'I busted, so all your hands that are not busted will win.',
-				"That's " + str(count) + " hand" + Dialog.plural(count) + "."
-			])
+	else:
+		if !playerHands.all(func(hand: Deck): return hand.isBusted()):
+			# skip if all busted
+			$Dialog.showDialog(['Time to determine whether you won or not!'])
 			await $Dialog.dialog_finished
-		else:
-			for i in len(playerHands):
-				if !playerHands[i].isBusted():
-					var result = playerHands[i].compareValue(dealerHand)
-					match result:
-						0:
-							GameManager.changeMoney(bet)
-							print('hand ' + str(i + 1) + ' push')
-							hideAllHandsButOne(i)
-							$Dialog.showDialog(['This hand pushed.'])
-							await $Dialog.dialog_finished
-						1:
-							GameManager.changeMoney(bet * 2)
-							playerChipDisplays[i].doubleChips()
-							print('hand ' + str(i + 1) + ' win')
-							hideAllHandsButOne(i)
-							$Dialog.showDialog(["This hand won."])
-							await $Dialog.dialog_finished
-						-1:
-							playerChipDisplays[i].clearChips()
-							print('hand ' + str(i + 1) + ' lose')
-							hideAllHandsButOne(i)
-							$Dialog.showDialog(["This hand lost."])
-							await $Dialog.dialog_finished
-						_:
-							push_error('somehow result is ' + str(result))
-	hideAllHandsButOne(-1)
+			# check insurance on game end bc it carries out regardless of outcome of main game
+			if insuring:
+				# the dealer would not draw any more cards had they natural bj, so it's safe to call this
+				if dealerHand.isNaturalBlackjack():
+					print('insure bet won')
+					$Dialog.showDialog(['You bet $' + str(insuranceBet) + ' for insurance, so you won $' + str(insuranceBet * 3) + '.'])
+					await $Dialog.dialog_finished
+					GameManager.changeMoney(insuranceBet * 3)
+					$InsuranceChips.tripleChips()
+				else:
+					$Dialog.showDialog(['You lost your insurance bet of $' + str(insuranceBet) + '.'])
+					await $Dialog.dialog_finished
+			$PlayerButtons.disableButtons()
+			if dealerHand.isBusted():
+				print('dealer over, so all your hands that have not busted will win')
+				var count = 0
+				for hand in playerHands:
+					if !hand.isBusted():
+						count += 1
+						GameManager.changeMoney(bet * 2)
+				print(str(count) + ' hand(s) have won')
+				if playerHands.size() == 1: $Dialog.showDialog(['I busted, so you win.'])
+				else: $Dialog.showDialog([
+					'I busted, so all your hands that are not busted will win.',
+					"That's " + str(count) + " hand" + Dialog.plural(count) + "."
+				])
+				await $Dialog.dialog_finished
+			else:
+				for i in len(playerHands):
+					if !playerHands[i].isBusted():
+						var result = playerHands[i].compareValue(dealerHand)
+						match result:
+							0:
+								GameManager.changeMoney(bet)
+								print('hand ' + str(i + 1) + ' push')
+								hideAllHandsButOne(i)
+								$Dialog.showDialog(['This hand pushed.'])
+								await $Dialog.dialog_finished
+							1:
+								GameManager.changeMoney(bet * 2)
+								playerChipDisplays[i].doubleChips()
+								print('hand ' + str(i + 1) + ' win')
+								hideAllHandsButOne(i)
+								$Dialog.showDialog(["This hand won."])
+								await $Dialog.dialog_finished
+							-1:
+								playerChipDisplays[i].clearChips()
+								print('hand ' + str(i + 1) + ' lose')
+								hideAllHandsButOne(i)
+								$Dialog.showDialog(["This hand lost."])
+								await $Dialog.dialog_finished
+							_:
+								push_error('somehow result is ' + str(result))
+		hideAllHandsButOne(-1)
 	if GameManager.money < 20:
 		print('less than 20, game lose')
 		$Dialog.showDialog(["Looks like you've lost too much money!"])
@@ -129,8 +134,9 @@ func endHand() -> void:
 		$PlayerButtons.enableButtons()
 		checkSplit()
 		checkDoubleDown()
-		# you can only buy insurance at the very start
+		# you can only buy insurance / surrender at the very start
 		$PlayerButtons.disableButton('insurance')
+		$PlayerButtons.disableButton('surrender')
 
 		$Dialog.showDialog(["You are now playing hand " + str(playerIdx + 1) + '.'])
 		await $Dialog.dialog_finished
@@ -250,6 +256,7 @@ func _on_player_hit() -> void:
 	$PlayerButtons.disableButton('double down')
 	$PlayerButtons.disableButton('split')
 	$PlayerButtons.disableButton('insurance')
+	$PlayerButtons.disableButton('surrender')
 	if playerHands[playerIdx].isBusted():
 		$PlayerButtons.disableButtons()
 		print('you bust! you lose!')
@@ -285,7 +292,9 @@ func _on_player_stand() -> void:
 func _on_player_surrender() -> void:
 	# 2.0 to get rid of that warning while avoiding that stupid line of code
 	GameManager.changeMoney(int(floor(bet / 2.0)))
-	endHand()
+	# you can only surrender on first move, and you cant surrender after split
+	surrender = true
+	endGame()
 
 func _on_player_insurance() -> void:
 	insuring = true
@@ -327,6 +336,7 @@ func _on_player_split() -> void:
 		return
 
 	$PlayerButtons.disableButton('split')
+	$PlayerButtons.disableButton('surrender')
 
 	$Dialog.showDialog(['You are now playing hand ' + str(playerIdx + 1) + '.'])
 	await $Dialog.dialog_finished
