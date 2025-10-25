@@ -53,7 +53,10 @@ func showMessage() -> void:
 ## displays entire message and ends isAnimating
 func showMessageImmediately() -> void:
 	timer.stop()
-	rich_text_label.text = lines[currentLine]
+	if sprite:
+		var parsed = lines[currentLine].rsplit('@')
+		if parsed.size() == 2: rich_text_label.text = parsed[1]
+		else: rich_text_label.text = parsed[0]
 	rich_text_label.visible_characters = -1
 	isAnimating = false
 

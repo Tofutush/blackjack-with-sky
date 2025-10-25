@@ -4,8 +4,8 @@
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_s8835"]
 
 [node name="PlayerButtons" type="HBoxContainer"]
-offset_right = 373.0
-offset_bottom = 159.0
+offset_right = 397.0
+offset_bottom = 200.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_s8835")
