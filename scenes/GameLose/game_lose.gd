@@ -4,7 +4,6 @@ class_name GameLose
 
 func _ready() -> void:
 	super()
-	print('super finish')
 	$Dialog.showDialog([
 		"normal@You lost too much money.",
 		"Your death sentence will carry out as planned.",

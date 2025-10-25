@@ -6,4 +6,6 @@ func _ready() -> void:
 	$BlackScreen.fadeOut()
 
 func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/Main/Main.tscn")
+	$BlackScreen.fadeIn()
+	await $BlackScreen.fade_finished
+	get_tree().change_scene_to_file("res://scenes/Intro/intro.tscn")

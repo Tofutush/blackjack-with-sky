@@ -1,4 +1,5 @@
 extends Control
+class_name Main
 
 const deckDisplayScene = preload("res://scenes/DeckDisplay/deck_display.tscn")
 const chipsScene = preload("res://scenes/Chips/chips.tscn")

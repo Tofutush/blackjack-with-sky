@@ -14,6 +14,9 @@ var currentLine := 0
 var isDialogging := false
 var isAnimating := false
 
+func _ready() -> void:
+	hide()
+
 func linkSprite(sprite1: SkyTalk) -> void:
 	sprite = sprite1
 
