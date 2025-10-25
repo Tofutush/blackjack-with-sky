@@ -89,7 +89,6 @@ func endGame() -> void:
 								await $Dialog.dialog_finished
 							1:
 								GameManager.changeMoney(bet * 2)
-								playerChipDisplays[i].doubleChips()
 								print('hand ' + str(i + 1) + ' win')
 								hideAllHandsButOne(i)
 								$Dialog.showDialog(["This hand won."])
