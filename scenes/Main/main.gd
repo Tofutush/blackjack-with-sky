@@ -242,6 +242,10 @@ func checkDoubleDown() -> void:
 		$PlayerButtons.disableButton('double down')
 		$PlayerButtons.setButtonTooltip('double down', "You can only double down on 2 cards.")
 		return
+	if playerHands.size() != 1 && GameManager.strictSplitting:
+		$PlayerButtons.disableButton('double down')
+		$PlayerButtons.setButtonTooltip('double down', "Strict splitting rules are on.")
+		return
 	if GameManager.money < bet * 2:
 		$PlayerButtons.disableButton('double down')
 		$PlayerButtons.setButtonTooltip('double down', "Not enough money.")
@@ -336,6 +340,7 @@ func _on_player_split() -> void:
 
 	$PlayerButtons.disableButton('split')
 	$PlayerButtons.disableButton('surrender')
+	checkDoubleDown()
 
 	$Dialog.showDialog(['You are now playing hand ' + str(playerIdx + 1) + '.'])
 	await $Dialog.dialog_finished

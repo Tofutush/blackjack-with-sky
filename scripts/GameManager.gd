@@ -9,11 +9,12 @@ var textAnimation := true ## whether to animate letters appearing one by one
 ## - only split exact same rank
 ## - 4 hands max
 ## - splitting aces can only get one more card
+## - no doubling down after splitting
 ## no strict splitting
 ## - split any 10-card
 ## - unlimited hands
 ## - play aces like normal
-## you can always double down after splitting
+## - double down after splitting
 var strictSplitting = true
 
 ## emitted whenever money is changed, mostly for the MoneyMeter (dont let win/lose check do it because it emits in the middle of games)
