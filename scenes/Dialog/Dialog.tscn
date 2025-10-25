@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvsn2prfxngft"]
+[gd_scene load_steps=6 format=3 uid="uid://dvsn2prfxngft"]
 
 [ext_resource type="Script" uid="uid://cqkl406yvf13u" path="res://scenes/Dialog/dialog.gd" id="1_bx2yw"]
+[ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_esnuy"]
 [ext_resource type="Texture2D" uid="uid://b82n8dd4055hr" path="res://assets/tail back.png" id="1_ptdee"]
 [ext_resource type="Texture2D" uid="uid://d3ci1impmd3av" path="res://assets/tail front.png" id="2_u13j6"]
 
@@ -23,6 +24,7 @@ expand_margin_bottom = 12.0
 [node name="Dialog" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+theme = ExtResource("1_esnuy")
 script = ExtResource("1_bx2yw")
 
 [node name="TailBack" type="TextureRect" parent="."]
@@ -42,7 +44,7 @@ offset_left = -455.0
 offset_bottom = 46.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_bx2yw")
 bbcode_enabled = true
-text = "Hello I am Sky I am your dealer I am your God bow down to me"
+text = "Hello I am Sky I [b]am[/b] your dealer I am your God bow down to me"
 fit_content = true
 autowrap_mode = 2
 

@@ -18,7 +18,7 @@ func _ready() -> void:
 			"I am [b]Sky Elmwood Dazzle[/b] from the [b]Ministry of State Security[/b].",
 			"You have been found guilty of treason and sentenced to death.",
 			"...",
-			"Well of [i]course[/i] you didn't have a trial, we don't do that here at the Ministry.",
+			"Well of [b]course[/b] you didn't have a trial, we don't do that here at the Ministry.",
 			"We're scheduling your execution right now. The shooting grounds are a little busy so you'd have to be patient.",
 			"But here's the thing. The Ministry has offered you a chance to be set free.",
 			"All you need to do is —"

@@ -9,7 +9,7 @@ func _ready() -> void:
 		"Good game!",
 		"Your execution is scheduled for this afternoon.",
 		"...",
-		"Oh, setting you [i]free[/i]?",
+		"Oh, setting you [b]free[/b]?",
 		"Come on.",
 		"A thousand bucks isn't enough to bail yourself out.",
 		"You don't think your life is worth more than that?",
