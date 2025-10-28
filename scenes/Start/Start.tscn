@@ -53,6 +53,7 @@ texture = ExtResource("3_sm7oe")
 metadata/_edit_use_anchors_ = true
 
 [node name="BlackScreen" parent="." instance=ExtResource("4_umbuf")]
+visible = false
 layout_mode = 0
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

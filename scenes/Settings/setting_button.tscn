@@ -17,19 +17,18 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[node name="SettingButton" type="CanvasLayer"]
-script = ExtResource("1_u7v05")
-
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("1_eo8ri")
+script = ExtResource("1_u7v05")
 
-[node name="Toggle" type="Button" parent="Control"]
+[node name="Toggle" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -39,7 +38,7 @@ offset_bottom = 128.0
 grow_horizontal = 0
 icon = ExtResource("3_0852y")
 
-[node name="PanelContainer" type="PanelContainer" parent="Control"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -52,43 +51,41 @@ offset_right = 705.5
 offset_bottom = 440.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_0852y")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="Settings" parent="Control/PanelContainer/ScrollContainer/MarginContainer" instance=ExtResource("4_u7v05")]
+[node name="Settings" parent="PanelContainer/ScrollContainer/MarginContainer" instance=ExtResource("4_u7v05")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/ScrollContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_constants/separation = 24
 
-[node name="Button" type="Button" parent="Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "Okay"
 
-[node name="Button2" type="Button" parent="Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Exit"
-
-[connection signal="pressed" from="Control/Toggle" to="." method="_on_toggled"]
-[connection signal="pressed" from="Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Button2" to="." method="_on_exit_pressed"]
