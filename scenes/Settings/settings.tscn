@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://4h61n1tdwejm"]
+[gd_scene load_steps=6 format=3 uid="uid://4h61n1tdwejm"]
 
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_esjpb"]
+[ext_resource type="Script" uid="uid://c2xuph5x67nku" path="res://scenes/Settings/settings.gd" id="2_sdsud"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esjpb"]
 bg_color = Color(0.33333334, 0.33333334, 0.33333334, 1)
@@ -27,6 +28,7 @@ corner_radius_bottom_left = 8
 custom_minimum_size = Vector2(500, 0)
 theme = ExtResource("1_esjpb")
 theme_override_constants/separation = 24
+script = ExtResource("2_sdsud")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -35,6 +37,7 @@ text = "Settings"
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
 text = "Godot UI is so hell, I'm sorry the checkboxes are so small"
 
 [node name="Language" type="HBoxContainer" parent="."]
@@ -67,13 +70,50 @@ text = "Volume"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+min_value = -80.0
+max_value = 0.0
+
+[node name="Decks" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Decks"]
+layout_mode = 2
+text = "How many decks to play with?"
+
+[node name="DeckSlider" type="HSlider" parent="Decks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="DeckCountLabel" type="Label" parent="Decks"]
+layout_mode = 2
+text = "1"
 
 [node name="Soft17" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Soft17"]
+[node name="CheckBox" type="CheckBox" parent="Soft17"]
 layout_mode = 2
 text = "Will the dealer stand at soft 17?"
 
-[node name="CheckBox" type="CheckBox" parent="Soft17"]
+[node name="StrictSplitting" type="HBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="StrictSplitting"]
+layout_mode = 2
+text = "Strict splitting rules?"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "If strict splitting rules are on, you cna only split the exact same rank, you cannot double down after splitting, you can have four hands max, and you can only get one more card after splitting aces. If off, you can split any 10-valued cards (10/J/Q/K), you can double down after splitting, you can have unlimited hands, and you can play split aces just like other ranks."
+
+[connection signal="item_selected" from="Language/LanguageOptionButton" to="." method="_on_language_selected"]
+[connection signal="value_changed" from="Volume/VolumeSlider" to="." method="_on_volume_changed"]
+[connection signal="value_changed" from="Decks/DeckSlider" to="." method="_on_deck_slider_value_changed"]
+[connection signal="toggled" from="Soft17/CheckBox" to="." method="_on_soft_17_toggled"]
+[connection signal="toggled" from="StrictSplitting/CheckBox" to="." method="_on_strict_splitting_toggled"]

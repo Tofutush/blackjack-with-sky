@@ -1,5 +1,7 @@
 extends Node
 
+var language: String = "en"
+
 var money := 100 ## how much money you have in total
 var standOnSoft17 := false ## whether dealer stands when they reach soft 17
 var deckNumber := 1 ## how many decks to play with, 1 - 8
@@ -39,3 +41,12 @@ func changeMoney(amount: int) -> void:
 	money = floor(money)
 	if money < 0: push_error('money somehow < 0, this is not possible, go check what happened')
 	money_changed.emit(money)
+
+## set language
+func setLang(lang: String) -> void:
+	if lang == 'en':
+		language = lang
+	elif lang == 'zh':
+		language = lang
+	else:
+		push_error('language ' + lang + ' dne')

@@ -1,4 +1,24 @@
-extends CanvasLayer
+extends VBoxContainer
 
-func _on_toggle_pressed() -> void:
-	pass # Replace with function body.
+func _on_language_selected(index: int) -> void:
+	match index:
+		0:
+			GameManager.setLang('en')
+		1:
+			GameManager.setLang('zh')
+		_:
+			push_error('language index wrong')
+
+func _on_volume_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(0, value)
+
+func _on_deck_slider_value_changed(value: float) -> void:
+	var valueInt := int(value)
+	GameManager.deckNumber = valueInt
+	$Decks/DeckCountLabel.text = str(valueInt)
+
+func _on_soft_17_toggled(toggled_on: bool) -> void:
+	GameManager.standOnSoft17 = toggled_on
+
+func _on_strict_splitting_toggled(toggled_on: bool) -> void:
+	GameManager.strictSplitting = toggled_on

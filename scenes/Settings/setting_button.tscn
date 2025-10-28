@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://lslfgec3o2x3"]
+[gd_scene load_steps=5 format=3 uid="uid://lslfgec3o2x3"]
 
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_eo8ri"]
-[ext_resource type="Script" uid="uid://c2xuph5x67nku" path="res://scenes/Settings/settings.gd" id="1_jvppc"]
 [ext_resource type="Texture2D" uid="uid://bmiablt0begj3" path="res://export/export/index.icon.png" id="3_0852y"]
 [ext_resource type="PackedScene" uid="uid://4h61n1tdwejm" path="res://scenes/Settings/settings.tscn" id="4_u7v05"]
 
@@ -18,7 +17,6 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [node name="SettingButton" type="CanvasLayer"]
-script = ExtResource("1_jvppc")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
