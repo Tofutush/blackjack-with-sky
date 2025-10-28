@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://lslfgec3o2x3"]
+
+[ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_eo8ri"]
+[ext_resource type="Script" uid="uid://c2xuph5x67nku" path="res://scenes/Settings/settings.gd" id="1_jvppc"]
+[ext_resource type="Texture2D" uid="uid://bmiablt0begj3" path="res://export/export/index.icon.png" id="3_0852y"]
+[ext_resource type="PackedScene" uid="uid://4h61n1tdwejm" path="res://scenes/Settings/settings.tscn" id="4_u7v05"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0852y"]
+bg_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+border_width_left = 24
+border_width_top = 24
+border_width_right = 24
+border_width_bottom = 24
+border_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[node name="SettingButton" type="CanvasLayer"]
+script = ExtResource("1_jvppc")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_eo8ri")
+
+[node name="Toggle" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 128.0
+grow_horizontal = 0
+icon = ExtResource("3_0852y")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -705.5
+offset_top = -440.0
+offset_right = 705.5
+offset_bottom = 440.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0852y")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="Settings" parent="Control/PanelContainer/MarginContainer" instance=ExtResource("4_u7v05")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Button" type="Button" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "Okay"
+
+[connection signal="pressed" from="Control/Toggle" to="." method="_on_toggle_pressed"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://4h61n1tdwejm"]
+
+[ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_esjpb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esjpb"]
+bg_color = Color(0.33333334, 0.33333334, 0.33333334, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdsud"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpxx6"]
+bg_color = Color(0.27450982, 0.27450982, 0.27450982, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Settings" type="VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+theme = ExtResource("1_esjpb")
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = "Godot UI is so hell, I'm sorry the checkboxes are so small"
+
+[node name="Language" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LanguageLabel" type="Label" parent="Language"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Language"
+
+[node name="LanguageOptionButton" type="OptionButton" parent="Language"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_esjpb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sdsud")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bpxx6")
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "中文"
+popup/item_1/id = 1
+
+[node name="Volume" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VolumeLabel" type="Label" parent="Volume"]
+layout_mode = 2
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="Volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="Soft17" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Soft17"]
+layout_mode = 2
+text = "Will the dealer stand at soft 17?"
+
+[node name="CheckBox" type="CheckBox" parent="Soft17"]
+layout_mode = 2
