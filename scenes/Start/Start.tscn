@@ -1,9 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2xei6oaheyd0"]
+[gd_scene load_steps=9 format=3 uid="uid://b2xei6oaheyd0"]
 
 [ext_resource type="Script" uid="uid://38ollc4r5xj0" path="res://scenes/Start/start.gd" id="1_q33yt"]
+[ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_xm7vy"]
 [ext_resource type="Texture2D" uid="uid://bmn508muv3aqq" path="res://assets/title.png" id="2_ntvpn"]
 [ext_resource type="Texture2D" uid="uid://cg72eipnmbvs5" path="res://assets/sky big.png" id="3_sm7oe"]
 [ext_resource type="PackedScene" uid="uid://djhmr61u644tc" path="res://scenes/BlackScreen/black_screen.tscn" id="4_umbuf"]
+[ext_resource type="PackedScene" uid="uid://4h61n1tdwejm" path="res://scenes/Settings/settings.tscn" id="6_xe3bl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvw5r"]
+bg_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+border_width_left = 24
+border_width_top = 24
+border_width_right = 24
+border_width_bottom = 24
+border_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xe3bl"]
+bg_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -12,23 +38,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_xm7vy")
 script = ExtResource("1_q33yt")
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.15364583
-anchor_top = 0.7699074
-anchor_right = 0.15364583
-anchor_bottom = 0.7699074
-offset_left = -115.0
-offset_top = -67.5
-offset_right = 115.0
-offset_bottom = 67.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Start"
-metadata/_edit_use_anchors_ = true
 
 [node name="Title" type="TextureRect" parent="."]
 layout_mode = 1
@@ -52,8 +63,137 @@ offset_bottom = 1080.0
 texture = ExtResource("3_sm7oe")
 metadata/_edit_use_anchors_ = true
 
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.10989583
+anchor_top = 0.62314814
+anchor_right = 0.10989583
+anchor_bottom = 0.62314814
+offset_right = 299.0
+offset_bottom = 282.0
+theme_override_constants/separation = 36
+metadata/_edit_use_anchors_ = true
+
+[node name="ContinueButton" type="Button" parent="Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Continue"
+
+[node name="StartButton" type="Button" parent="Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "New Game"
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsButton" type="Button" parent="Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Settings"
+
+[node name="SettingsContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -705.5
+offset_top = -440.0
+offset_right = 705.5
+offset_bottom = 440.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_mvw5r")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SettingsContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="Settings" parent="SettingsContainer/ScrollContainer/MarginContainer" instance=ExtResource("6_xe3bl")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 24
+
+[node name="Button" type="Button" parent="SettingsContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "Okay"
+
+[node name="Button2" type="Button" parent="SettingsContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Exit"
+
+[node name="NewGameWarning" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -180.25
+offset_right = 453.5
+offset_bottom = 180.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xe3bl")
+
+[node name="MarginContainer" type="MarginContainer" parent="NewGameWarning"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameWarning/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NewGameWarning/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 48
+text = "Starting a new game will erase all your current progress (if you have any). Proceed?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewGameWarning/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 36
+
+[node name="NoButton" type="Button" parent="NewGameWarning/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "No
+"
+
+[node name="YesButton" type="Button" parent="NewGameWarning/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Yes"
+
 [node name="BlackScreen" parent="." instance=ExtResource("4_umbuf")]
 visible = false
 layout_mode = 0
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Buttons/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Buttons/StartButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="NewGameWarning/MarginContainer/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="NewGameWarning/MarginContainer/VBoxContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
