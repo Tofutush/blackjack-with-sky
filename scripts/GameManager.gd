@@ -22,6 +22,9 @@ var strictSplitting = true
 ## emitted whenever money is changed, mostly for the MoneyMeter (dont let win/lose check do it because it emits in the middle of games)
 signal money_changed(amount: int)
 
+func _ready() -> void:
+	loadSettings()
+
 ## create a deck according to deckNumber
 func createDeck() -> Deck:
 	const suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
@@ -50,3 +53,26 @@ func setLang(lang: String) -> void:
 		language = lang
 	else:
 		push_error('language ' + lang + ' dne')
+	saveSettings()
+
+## save general settings inside, all except money
+func saveSettings() -> void:
+	var config = ConfigFile.new()
+	config.set_value("game", "language", language)
+	config.set_value("game", "soft17", standOnSoft17)
+	config.set_value("game", "strictsplitting", strictSplitting)
+	config.set_value("game", "animate", textAnimation)
+	config.set_value("game", "volume", AudioServer.get_bus_volume_db(0))
+	config.save("user://config.cfg")
+
+## load general settings
+func loadSettings() -> void:
+	var config = ConfigFile.new()
+	var err = config.load("user://config.cfg")
+	if err != OK:
+		return
+	setLang(config.get_value("game", "language"))
+	standOnSoft17 = config.get_value("game", "soft17")
+	strictSplitting = config.get_value("game", "strictsplitting")
+	textAnimation = config.get_value("game", "animate")
+	AudioServer.set_bus_volume_db(0, config.get_value("game", "volume"))
