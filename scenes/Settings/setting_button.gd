@@ -7,6 +7,14 @@ var shown := false
 func _ready() -> void:
 	panel_container.hide()
 
+## disable opening the setting menu
+func disable() -> void:
+	$Toggle.disabled = true
+
+## enable the setting menu
+func enable() -> void:
+	$Toggle.disabled = false
+
 func _on_toggled() -> void:
 	print('toggled')
 	if shown:

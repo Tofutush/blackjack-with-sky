@@ -120,6 +120,7 @@ func endGame() -> void:
 		await get_tree().create_timer(1).timeout
 		get_tree().change_scene_to_file("res://scenes/GameWin/game_win.tscn")
 	$ContinueButton.show()
+	$SettingButton.enable()
 
 ## this is when you finish playing a hand, not the game
 func endHand() -> void:
@@ -165,6 +166,9 @@ func _on_bet_submitted(amount: int, purpose: String) -> void:
 
 ## start game, deal initial cards, run initial checks like insurance & split
 func play() -> void:
+	# disable settings during play
+	$SettingButton.disable()
+
 	# create deck
 	mainDeck = GameManager.createDeck()
 
