@@ -4,6 +4,7 @@ extends Control
 func _ready() -> void:
 	$BlackScreen.fadeOut()
 	$SettingsContainer.hide()
+	$NewGameWarning.hide()
 
 func _on_button_pressed() -> void:
 	$NewGameWarning.show()
@@ -23,3 +24,6 @@ func _on_yes_button_pressed() -> void:
 
 func _on_no_button_pressed() -> void:
 	$NewGameWarning.hide()
+
+func _on_setting_close_pressed() -> void:
+	$SettingsContainer.hide()

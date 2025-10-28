@@ -137,12 +137,6 @@ size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "Okay"
 
-[node name="Button2" type="Button" parent="SettingsContainer/ScrollContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-text = "Exit"
-
 [node name="NewGameWarning" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -195,5 +189,6 @@ layout_mode = 0
 [connection signal="pressed" from="Buttons/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Buttons/StartButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="SettingsContainer/ScrollContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_setting_close_pressed"]
 [connection signal="pressed" from="NewGameWarning/MarginContainer/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]
 [connection signal="pressed" from="NewGameWarning/MarginContainer/VBoxContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
