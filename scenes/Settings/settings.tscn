@@ -110,7 +110,7 @@ text = "Strict splitting rules?"
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "If strict splitting rules are on, you cna only split the exact same rank, you cannot double down after splitting, you can have four hands max, and you can only get one more card after splitting aces. If off, you can split any 10-valued cards (10/J/Q/K), you can double down after splitting, you can have unlimited hands, and you can play split aces just like other ranks."
+text = "If strict splitting rules are on, you can only split the exact same rank, you cannot double down after splitting, you can have four hands max, and you can only get one more card after splitting aces. If off, you can split any 10-valued cards (10/J/Q/K), you can double down after splitting, you can have unlimited hands, and you can play split aces just like other ranks."
 
 [connection signal="item_selected" from="Language/LanguageOptionButton" to="." method="_on_language_selected"]
 [connection signal="value_changed" from="Volume/VolumeSlider" to="." method="_on_volume_changed"]
