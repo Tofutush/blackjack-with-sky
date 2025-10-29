@@ -1,7 +1,5 @@
 extends Node
 
-var language: String = "en"
-
 var money := 100 ## how much money you have in total
 var standOnSoft17 := false ## whether dealer stands when they reach soft 17
 var deckNumber := 1 ## how many decks to play with, 1 - 8
@@ -46,20 +44,9 @@ func changeMoney(amount: int) -> void:
 	money_changed.emit(money)
 	saveSettings()
 
-## set language
-func setLang(lang: String) -> void:
-	if lang == 'en':
-		language = lang
-	elif lang == 'zh':
-		language = lang
-	else:
-		push_error('language ' + lang + ' dne')
-	saveSettings()
-
 ## save general settings inside, all except money
 func saveSettings() -> void:
 	var config = ConfigFile.new()
-	config.set_value("game", "language", language)
 	config.set_value("game", "decks", deckNumber)
 	config.set_value("game", "soft17", standOnSoft17)
 	config.set_value("game", "strictsplitting", strictSplitting)
@@ -73,7 +60,6 @@ func loadSettings() -> void:
 	var err = config.load("user://config.cfg")
 	if err != OK:
 		return
-	setLang(config.get_value("game", "language") if config.get_value("game", "language") != null else 'en')
 	deckNumber = config.get_value("game", "decks") if config.get_value("game", "decks") != null else 1
 	standOnSoft17 = config.get_value("game", "soft17") if config.get_value("game", "soft17") != null else false
 	strictSplitting = config.get_value("game", "strictsplitting") if config.get_value("game", "strictsplitting") != null else true

@@ -1,28 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://4h61n1tdwejm"]
+[gd_scene load_steps=3 format=3 uid="uid://4h61n1tdwejm"]
 
 [ext_resource type="Theme" uid="uid://sfy8iivbp4g" path="res://assets/theme.tres" id="1_esjpb"]
 [ext_resource type="Script" uid="uid://c2xuph5x67nku" path="res://scenes/Settings/settings.gd" id="2_sdsud"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esjpb"]
-bg_color = Color(0.33333334, 0.33333334, 0.33333334, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdsud"]
-bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpxx6"]
-bg_color = Color(0.27450982, 0.27450982, 0.27450982, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
 [node name="Settings" type="VBoxContainer"]
 custom_minimum_size = Vector2(500, 0)
@@ -39,25 +18,6 @@ text = "Settings"
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Godot UI is so hell, I'm sorry the checkboxes are so small"
-
-[node name="Language" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="LanguageLabel" type="Label" parent="Language"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "Language"
-
-[node name="LanguageOptionButton" type="OptionButton" parent="Language"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_esjpb")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sdsud")
-theme_override_styles/hover = SubResource("StyleBoxFlat_bpxx6")
-item_count = 2
-popup/item_0/text = "English"
-popup/item_0/id = 0
-popup/item_1/text = "中文"
-popup/item_1/id = 1
 
 [node name="Volume" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -112,7 +72,6 @@ size_flags_vertical = 3
 bbcode_enabled = true
 text = "If strict splitting rules are on, you can only split the exact same rank, you cannot double down after splitting, you can have four hands max, and you can only get one more card after splitting aces. If off, you can split any 10-valued cards (10/J/Q/K), you can double down after splitting, you can have unlimited hands, and you can play split aces just like other ranks."
 
-[connection signal="item_selected" from="Language/LanguageOptionButton" to="." method="_on_language_selected"]
 [connection signal="value_changed" from="Volume/VolumeSlider" to="." method="_on_volume_changed"]
 [connection signal="value_changed" from="Decks/DeckSlider" to="." method="_on_deck_slider_value_changed"]
 [connection signal="toggled" from="Soft17/CheckBox" to="." method="_on_soft_17_toggled"]
