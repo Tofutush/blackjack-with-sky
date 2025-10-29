@@ -1,5 +1,15 @@
 extends VBoxContainer
 
+func _ready() -> void:
+	if GameManager.language == "zh":
+		$Language/LanguageOptionButton.select(1)
+	else:
+		$Language/LanguageOptionButton.select(0)
+	$Soft17/CheckBox.button_pressed = GameManager.standOnSoft17
+	$StrictSplitting/CheckBox.button_pressed = GameManager.strictSplitting
+	$Decks/DeckSlider.value = GameManager.deckNumber
+	$Volume/VolumeSlider.value = AudioServer.get_bus_volume_db(0)
+
 func _on_language_selected(index: int) -> void:
 	match index:
 		0:

@@ -59,6 +59,7 @@ func setLang(lang: String) -> void:
 func saveSettings() -> void:
 	var config = ConfigFile.new()
 	config.set_value("game", "language", language)
+	config.set_value("game", "decks", deckNumber)
 	config.set_value("game", "soft17", standOnSoft17)
 	config.set_value("game", "strictsplitting", strictSplitting)
 	config.set_value("game", "animate", textAnimation)
@@ -71,8 +72,9 @@ func loadSettings() -> void:
 	var err = config.load("user://config.cfg")
 	if err != OK:
 		return
-	setLang(config.get_value("game", "language"))
-	standOnSoft17 = config.get_value("game", "soft17")
-	strictSplitting = config.get_value("game", "strictsplitting")
-	textAnimation = config.get_value("game", "animate")
-	AudioServer.set_bus_volume_db(0, config.get_value("game", "volume"))
+	setLang(config.get_value("game", "language") if config.get_value("game", "language") != null else 'en')
+	deckNumber = config.get_value("game", "decks") if config.get_value("game", "decks") != null else 1
+	standOnSoft17 = config.get_value("game", "soft17") if config.get_value("game", "soft17") != null else false
+	strictSplitting = config.get_value("game", "strictsplitting") if config.get_value("game", "strictsplitting") != null else true
+	textAnimation = config.get_value("game", "animate") if config.get_value("game", "animate") != null else true
+	AudioServer.set_bus_volume_db(0, config.get_value("game", "volume") if config.get_value("game", "volume") != null else 0)
