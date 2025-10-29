@@ -44,6 +44,7 @@ func changeMoney(amount: int) -> void:
 	money = floor(money)
 	if money < 0: push_error('money somehow < 0, this is not possible, go check what happened')
 	money_changed.emit(money)
+	saveSettings()
 
 ## set language
 func setLang(lang: String) -> void:
@@ -78,3 +79,4 @@ func loadSettings() -> void:
 	strictSplitting = config.get_value("game", "strictsplitting") if config.get_value("game", "strictsplitting") != null else true
 	textAnimation = config.get_value("game", "animate") if config.get_value("game", "animate") != null else true
 	AudioServer.set_bus_volume_db(0, config.get_value("game", "volume") if config.get_value("game", "volume") != null else 0)
+	money = config.get_value("game", "money") if config.get_value("game", "money") != null else 100
